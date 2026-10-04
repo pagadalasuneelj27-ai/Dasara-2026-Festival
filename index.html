@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#781f2b">
+  <title>Dasara 2026 – Veeranjaneya Swami Youth</title>
+  <style>
+    :root {
+      --maroon: #781f2b;
+      --dark: #421820;
+      --saffron: #ed852d;
+      --gold: #bd8d35;
+      --cream: #fffaf1;
+      --paper: #ffffff;
+      --ink: #302727;
+      --muted: #736664;
+      --line: #ecdfcd;
+      --green: #246647;
+      --shadow: 0 12px 36px #42182009;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 95px; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--cream);
+      font: 16px/1.65 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    button, input, select, textarea { font: inherit; }
+    a { color: inherit; }
+    button, .button { cursor: pointer; }
+    button:focus-visible, a:focus-visible, input:focus-visible,
+    select:focus-visible, textarea:focus-visible {
+      outline: 3px solid var(--saffron);
+      outline-offset: 4px;
+    }
+    .skip {
+      position: fixed; top: -100px; left: 16px;
+      padding: 12px; background: white; z-index: 100;
+    }
+    .skip:focus { top: 10px; }
+    .container { width: min(1140px, calc(100% - 40px)); margin: auto; }
+    .topline {
+      padding: 8px 20px; background: var(--maroon);
+      color: #ffe6b9; text-align: center; font-size: 12px;
+      letter-spacing: 1.5px;
+    }
+    header {
+      position: sticky; top: 0; z-index: 20;
+      background: #fffaf1f5; border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+    .header-inner {
+      min-height: 82px; display: flex; align-items: center;
+      justify-content: space-between; gap: 18px;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .brand-icon {
+      width: 44px; height: 48px; display: grid; place-items: center;
+      background: var(--maroon); color: #ffda90;
+      border-radius: 24px 24px 7px 7px; font-size: 25px;
+    }
+    .brand strong { display: block; font-size: 16px; line-height: 1.3; }
+    .brand small { color: var(--muted); font-size: 11px; letter-spacing: 1.6px; }
+    nav { display: flex; gap: 19px; align-items: center; }
+    nav a { font-size: 13px; text-decoration: none; font-weight: 600; }
+    nav a:hover { color: var(--maroon); text-decoration: underline; }
+    .year-control { display: flex; align-items: center; gap: 8px; }
+    .year-control select {
+      width: auto; padding: 8px 12px; border-radius: 6px;
+      color: var(--maroon); background: white;
+    }
+    .eyebrow {
+      color: var(--maroon); font-weight: 750; font-size: 11px;
+      letter-spacing: 2.5px; text-transform: uppercase;
+    }
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, .serif { font-family: Georgia, "Times New Roman", serif; }
+    h1 { font-size: clamp(44px, 5.8vw, 74px); line-height: 1.08; font-weight: 500; margin-bottom: 22px; }
+    h1 em { color: var(--maroon); font-style: normal; }
+    h2 { font-size: clamp(29px, 3.4vw, 40px); line-height: 1.2; font-weight: 500; margin-bottom: 12px; }
+    h3 { font-size: 19px; margin-bottom: 8px; }
+    .muted { color: var(--muted); }
+    .hero {
+      display: grid; grid-template-columns: 1.12fr 1fr;
+      align-items: center; gap: 56px; padding: 66px 0 54px;
+    }
+    .hero p { max-width: 510px; }
+    .pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 12px; border: 1px solid #e8cfab;
+      background: #fff3df; border-radius: 30px;
+      font-size: 12px; color: #87531f; margin-bottom: 22px;
+    }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 25px; }
+    .button {
+      display: inline-flex; justify-content: center; align-items: center;
+      padding: 12px 19px; border-radius: 6px; border: 1px solid var(--maroon);
+      background: var(--maroon); color: white; font-weight: 650;
+      text-decoration: none; font-size: 14px;
+    }
+    .button.secondary { background: transparent; color: var(--maroon); border-color: #dbc8b7; }
+    .button.light { background: #fff7e8; color: var(--maroon); border: 0; }
+    .hero-art {
+      position: relative; min-height: 420px; overflow: hidden;
+      border-radius: 220px 220px 14px 14px;
+      border: 1px solid #d9b875;
+      background: radial-gradient(circle at 50% 38%, #fff6cc 0, #f6d79b 36%, #e9b66c 100%);
+      display: grid; place-items: center;
+      box-shadow: var(--shadow);
+    }
+    .hero-art::before {
+      content: ""; position: absolute; inset: 14px;
+      border: 1px solid #b6813d80; border-radius: inherit;
+    }
+    .hero-art svg { width: 88%; height: 350px; }
+    .art-caption {
+      position: absolute; bottom: 20px; text-align: center;
+      color: #6a3b27; font-size: 10px; letter-spacing: 2px;
+    }
+    .hero-note { margin-top: 23px; font-size: 12px; color: var(--muted); }
+    .sample-banner {
+      background: #fff0d7; color: #795421; border: 1px solid #edd4a8;
+      padding: 12px 18px; border-radius: 7px; font-size: 13px;
+      margin-bottom: 24px;
+    }
+    section { padding: 45px 0; }
+    .section-head {
+      display: flex; justify-content: space-between; align-items: end;
+      gap: 20px; margin-bottom: 25px;
+    }
+    .section-head p { margin-bottom: 0; }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .stat {
+      padding: 26px; border: 1px solid var(--line);
+      border-radius: 10px; background: white; box-shadow: var(--shadow);
+    }
+    .stat small { color: var(--muted); }
+    .stat strong { display: block; font-size: 33px; margin: 6px 0; font-weight: 650; }
+    .stat span { font-size: 12px; color: var(--muted); }
+    .stat.balance { background: var(--maroon); color: white; border-color: var(--maroon); }
+    .stat.balance small, .stat.balance span { color: #f1d9cb; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 42px; }
+    .values { display: grid; gap: 12px; }
+    .value { padding: 19px 22px; border-left: 3px solid var(--gold); background: #f7eddf; }
+    .value p { margin: 0; font-size: 14px; color: var(--muted); }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .card { padding: 24px; background: white; border: 1px solid var(--line); border-radius: 9px; }
+    .card p:last-child { margin-bottom: 0; }
+    .tag {
+      display: inline-block; font-size: 11px; color: var(--maroon);
+      background: #faf0e6; padding: 4px 9px; border-radius: 4px; margin-bottom: 14px;
+    }
+    .schedule-time { color: var(--maroon); font-weight: 700; font-size: 13px; }
+    .announcement {
+      background: #f6ead8; border: 1px solid #e4cfac; border-radius: 8px;
+      padding: 17px 22px; margin-top: 20px;
+    }
+    .announcement p { margin: 6px 0; font-size: 14px; }
+    .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 9px; background: white; }
+    table { width: 100%; border-collapse: collapse; text-align: left; white-space: nowrap; }
+    th { background: #f8f1e7; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+    td, th { padding: 15px 20px; border-bottom: 1px solid #f0e7da; }
+    td { font-size: 14px; }
+    tr:last-child td { border-bottom: 0; }
+    .amount { text-align: right; font-variant-numeric: tabular-nums; }
+    .income { color: var(--green); }
+    .expense { color: var(--maroon); }
+    .empty { padding: 28px; color: var(--muted); text-align: center; }
+    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    figure { margin: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 9px; background: white; }
+    figure img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; }
+    figcaption { padding: 14px 18px; font-size: 14px; }
+    .gallery-empty {
+      min-height: 200px; display: grid; place-items: center;
+      padding: 28px; text-align: center;
+      background: repeating-linear-gradient(45deg, #f7eddf, #f7eddf 12px, #fbf4e9 12px, #fbf4e9 24px);
+      border: 1px solid var(--line); border-radius: 9px;
+      color: #836848;
+    }
+    .avatar {
+      width: 46px; height: 46px; border-radius: 50%;
+      background: #f6e8d3; color: var(--maroon);
+      display: grid; place-items: center; margin-bottom: 14px; font-weight: 700;
+    }
+    .archive-strip {
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 24px; background: var(--maroon); color: white;
+      padding: 32px; border-radius: 10px;
+    }
+    .archive-strip h2 { font-size: 29px; }
+    .archive-strip p { margin: 0; color: #edd5c9; font-size: 14px; }
+    .archive-buttons { display: flex; gap: 9px; flex-wrap: wrap; }
+    footer { padding: 35px 0; margin-top: 35px; border-top: 1px solid var(--line); }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+    footer p { font-size: 12px; margin: 6px 0 0; color: var(--muted); }
+    dialog {
+      width: min(650px, calc(100% - 24px)); max-height: 90vh;
+      padding: 28px; border: 1px solid var(--line); border-radius: 12px;
+      color: var(--ink); background: var(--cream);
+    }
+    dialog::backdrop { background: #241315aa; backdrop-filter: blur(3px); }
+    .dialog-head { display: flex; justify-content: space-between; gap: 15px; align-items: center; }
+    .close { background: transparent; border: 0; font-size: 26px; padding: 5px 10px; }
+    label { display: block; font-size: 13px; font-weight: 600; margin: 14px 0 5px; }
+    input, select, textarea {
+      width: 100%; padding: 11px 12px; border: 1px solid #dbcdbd;
+      border-radius: 5px; background: white; color: var(--ink);
+    }
+    textarea { min-height: 90px; resize: vertical; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-note { font-size: 12px; color: var(--muted); }
+    #status { min-height: 24px; color: var(--green); font-size: 14px; }
+    [hidden] { display: none !important; }
+
+    @media (max-width: 1000px) {
+      nav { gap: 12px; }
+      nav a { font-size: 12px; }
+      .brand strong { font-size: 14px; }
+      .hero { gap: 30px; }
+    }
+    @media (max-width: 780px) {
+      .header-inner { flex-wrap: wrap; padding: 13px 0; gap: 12px; }
+      nav { order: 3; width: 100%; overflow-x: auto; padding-bottom: 3px; gap: 22px; }
+      nav a { white-space: nowrap; }
+      .hero { grid-template-columns: 1fr; padding-top: 36px; gap: 30px; }
+      .hero-art { min-height: 340px; max-width: 460px; width: 100%; margin: auto; }
+      .hero-art svg { height: 290px; }
+      .about-grid { grid-template-columns: 1fr; gap: 22px; }
+      .cards, .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .stats { gap: 10px; }
+      .stat { padding: 18px 13px; }
+      .stat strong { font-size: 24px; }
+      .stat span { font-size: 10px; }
+      .archive-strip, .footer-inner { align-items: flex-start; flex-direction: column; }
+      section { padding: 32px 0; }
+      html { scroll-padding-top: 145px; }
+    }
+    @media (max-width: 480px) {
+      .container { width: calc(100% - 28px); }
+      .cards, .gallery-grid { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: 1fr; }
+      .stat { padding: 18px 22px; }
+      .stat strong { font-size: 30px; }
+      .section-head { align-items: flex-start; flex-direction: column; gap: 12px; }
+      .form-row { grid-template-columns: 1fr; gap: 0; }
+      .topline { font-size: 10px; letter-spacing: 1px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="topline">DEVOTION · UNITY · SERVICE &nbsp; | &nbsp; JAI VEERANJANEYA SWAMI</div>
+
+  <header>
+    <div class="container header-inner">
+      <a class="brand" href="#home" aria-label="Veeranjaneya Swami Youth home">
+        <span class="brand-icon" aria-hidden="true">ॐ</span>
+        <span>
+          <strong>Veeranjaneya Swami</strong>
+          <small>YOUTH · DASARA CELEBRATIONS</small>
+        </span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#schedule">Schedule</a>
+        <a href="#donations">Donations</a>
+        <a href="#accounts">Accounts</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#team">Team</a>
+      </nav>
+      <div class="year-control">
+        <label for="year" style="margin:0">Year</label>
+        <select id="year" aria-label="Celebration year"></select>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <div id="home" class="hero">
+      <div>
+        <div class="pill">✦ A celebration that brings us together</div>
+        <h1>Rooted in devotion.<br><em>United in celebration.</em></h1>
+        <p class="muted">
+          Join Veeranjaneya Swami Youth for Dasara <span data-year></span> —
+          a community celebration of faith, friendship, and the joy of giving.
+        </p>
+        <div class="actions">
+          <a href="#schedule" class="button">Explore the celebrations ↗</a>
+          <a href="#donations" class="button secondary">View contributions</a>
+        </div>
+        <p class="hero-note">One community. A shared tradition. Memories for every year.</p>
+      </div>
+
+      <div class="hero-art" role="img" aria-label="Decorative temple illustration with a saffron flag and lamps">
+        <svg viewBox="0 0 440 380" aria-hidden="true">
+          <defs>
+            <radialGradient id="halo">
+              <stop stop-color="#fffce5"/>
+              <stop offset="1" stop-color="#fff5cb" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <circle cx="220" cy="158" r="150" fill="url(#halo)"/>
+          <g fill="none" stroke="#b6813d" opacity=".3">
+            <circle cx="220" cy="162" r="110"/>
+            <circle cx="220" cy="162" r="125" stroke-dasharray="2 8"/>
+            <path d="M30 62 Q220 150 410 62"/>
+          </g>
+          <g fill="#c17a34">
+            <path d="M48 72 l7 25 7-20M92 89l7 26 7-22M136 101l7 26 7-23M298 101l7 26 7-23M342 89l7 26 7-22M386 72l7 25 7-20"/>
+          </g>
+          <path d="M222 37v57" stroke="#803e28" stroke-width="3"/>
+          <path d="M224 37q27 0 45 13l-45 12" fill="#d76e28"/>
+          <g fill="#934b30">
+            <path d="M206 99l14-22 14 22z"/>
+            <path d="M192 123l28-30 28 30z"/>
+            <path d="M178 151l42-36 42 36z"/>
+            <path d="M161 183l59-43 59 43z"/>
+            <path d="M145 210l75-36 75 36z"/>
+            <rect x="151" y="210" width="138" height="105" rx="3"/>
+            <path d="M108 232l33-25 33 25zM266 232l33-25 33 25z"/>
+            <rect x="113" y="233" width="25" height="82"/>
+            <rect x="302" y="233" width="25" height="82"/>
+            <rect x="99" y="315" width="242" height="12" rx="2"/>
+            <rect x="82" y="332" width="276" height="10" rx="2"/>
+          </g>
+          <path d="M187 313v-56a33 33 0 0 1 66 0v56z" fill="#f8d593"/>
+          <text x="220" y="286" text-anchor="middle" font-size="46" fill="#874027">ॐ</text>
+          <g stroke="#e2ae64" stroke-width="4">
+            <path d="M173 212v101M267 212v101M116 244h19M305 244h19"/>
+          </g>
+          <g fill="#8b482e">
+            <path d="M42 303q18 23 36 0zM361 303q18 23 36 0z"/>
+            <path d="M58 318h4v20h-4M377 318h4v20h-4"/>
+          </g>
+          <g fill="#f0912c">
+            <path d="M60 301q-13-13 0-27q12 16 0 27"/>
+            <path d="M379 301q-13-13 0-27q12 16 0 27"/>
+          </g>
+        </svg>
+        <span class="art-caption">FAITH THAT CONNECTS GENERATIONS</span>
+      </div>
+    </div>
+
+    <div class="sample-banner">
+      <strong>Website preview:</strong> All initial names, amounts, and programs are
+      examples. Confirmed festival dates, venue, and an approved image of
+      Veeranjaneya Swami can be added before launch.
+    </div>
+
+    <section aria-labelledby="overview-title">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Every contribution counts</div>
+          <h2 id="overview-title">Together, with transparency.</h2>
+          <p class="muted">Financial overview for Dasara <span data-year></span>.</p>
+        </div>
+        <a href="#accounts" class="button secondary">View financial records ↗</a>
+      </div>
+      <div class="stats" aria-live="polite">
+        <div class="stat">
+          <small>Total contributions</small>
+          <strong id="total-income"></strong>
+          <span id="donor-count"></span>
+        </div>
+        <div class="stat">
+          <small>Total expenses</small>
+          <strong id="total-expenses"></strong>
+          <span>Purchases, wages, and celebration costs</span>
+        </div>
+        <div class="stat balance">
+          <small>Available balance</small>
+          <strong id="total-balance"></strong>
+          <span>Recorded contributions minus expenses</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="about-grid">
+        <div>
+          <div class="eyebrow">Our community, our tradition</div>
+          <h2>A shared devotion.<br>A lasting bond.</h2>
+          <p class="muted">
+            Veeranjaneya Swami Youth brings our community together each year
+            to celebrate Dasara with devotion, unity, and cultural spirit.
+            Through collective effort, we organize celebrations that welcome
+            families, friends, and neighbors.
+          </p>
+          <p class="muted">
+            This website preserves our annual programs, contributions,
+            expenses, and memories, so each celebration becomes part of
+            a lasting community record.
+          </p>
+        </div>
+        <div class="values">
+          <div class="value"><h3>Devotion & tradition</h3><p>Celebrate our faith and pass our traditions to the next generation.</p></div>
+          <div class="value"><h3>Youth & community</h3><p>Bring people together through volunteering, culture, and service.</p></div>
+          <div class="value"><h3>Openness & trust</h3><p>Keep contributions and spending accessible to our community.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="schedule">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Come together in celebration</div>
+          <h2>Celebration schedule</h2>
+          <p class="muted">Programs and timings for <span data-year></span>. Example entries are tentative.</p>
+        </div>
+        <button class="button secondary" id="share">Share on WhatsApp ↗</button>
+      </div>
+      <div id="schedule-list" class="cards"></div>
+      <div class="announcement">
+        <strong>Community announcements</strong>
+        <div id="announcements"></div>
+      </div>
+    </section>
+
+    <section id="donations">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Made possible by you</div>
+          <h2>Contributions with gratitude</h2>
+          <p class="muted">Recorded donations for <span data-year></span>.</p>
+        </div>
+        <button class="button secondary" id="donation-info">How to contribute</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <caption class="form-note" style="text-align:left;padding:12px 20px">
+            Donor names should be published only with their permission.
+          </caption>
+          <thead><tr><th>Date</th><th>Donor</th><th>Purpose / note</th><th class="amount">Contribution</th></tr></thead>
+          <tbody id="donation-rows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="accounts">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Clear records, shared trust</div>
+          <h2>Income & expenses</h2>
+          <p class="muted">The complete recorded ledger for the selected year.</p>
+        </div>
+        <button class="button secondary" id="export">Download CSV ↓</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Date</th><th>Details</th><th>Category</th><th>Type</th><th class="amount">Amount</th></tr></thead>
+          <tbody id="ledger-rows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="gallery">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Moments to remember</div>
+          <h2>Our celebration memories</h2>
+          <p class="muted">Photos and video links from Dasara <span data-year></span>.</p>
+        </div>
+      </div>
+      <div id="gallery-list" class="gallery-grid"></div>
+    </section>
+
+    <section id="team">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">The people behind the celebration</div>
+          <h2>Our volunteer team</h2>
+          <p class="muted">Organizers and volunteers for <span data-year></span>.</p>
+        </div>
+      </div>
+      <div id="team-list" class="cards"></div>
+    </section>
+
+    <section id="archives">
+      <div class="archive-strip">
+        <div>
+          <h2>Every year, a new chapter.</h2>
+          <p>Explore annual programs, accounts, teams, and memories.</p>
+        </div>
+        <div class="archive-buttons" id="archive-buttons"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>
+        <strong>Veeranjaneya Swami Youth</strong>
+        <p>With devotion. With unity. For our community.</p>
+      </div>
+      <button class="button secondary" id="open-admin">Organizer demo</button>
+    </div>
+  </footer>
+
+  <dialog id="info-dialog" aria-labelledby="info-title">
+    <div class="dialog-head">
+      <h2 id="info-title">Contribute to the celebrations</h2>
+      <button class="close" data-close="info-dialog" aria-label="Close">×</button>
+    </div>
+    <p>
+      Verified donation instructions and organizer contact details have not
+      been added to this preview.
+    </p>
+    <p class="muted">
+      Before launch, add the youth group's verified payment details and a
+      contact person. Organizers can then record confirmed contributions
+      in the annual ledger.
+    </p>
+  </dialog>
+
+  <dialog id="admin-dialog" aria-labelledby="admin-title">
+    <div class="dialog-head">
+      <h2 id="admin-title">Organizer demo</h2>
+      <button class="close" data-close="admin-dialog" aria-label="Close">×</button>
+    </div>
+    <p class="form-note">
+      Prototype only — this panel is not restricted. Changes are saved in
+      this browser, not shared with other visitors. Do not enter private data.
+    </p>
+
+    <form id="admin-form">
+      <div class="form-row">
+        <div>
+          <label for="record-year">Celebration year</label>
+          <input id="record-year" type="number" min="2000" max="2100" required>
+        </div>
+        <div>
+          <label for="record-type">Add an entry</label>
+          <select id="record-type">
+            <option value="donation">Donation</option>
+            <option value="expense">Expense / wage</option>
+            <option value="schedule">Schedule item</option>
+            <option value="announcement">Announcement</option>
+            <option value="gallery">Gallery photo / video link</option>
+            <option value="team">Team member</option>
+          </select>
+        </div>
+      </div>
+      <div id="dynamic-fields"></div>
+      <div class="actions">
+        <button class="button" type="submit">Save entry</button>
+        <button class="button secondary" type="button" id="backup">Download JSON backup</button>
+      </div>
+      <p id="status" role="status"></p>
+    </form>
+  </dialog>
+
+  <script>
+    "use strict";
+
+    const STORAGE_KEY = "veeranjaneya-dasara-preview-v1";
+    const emptyYear = () => ({
+      entries: [], schedule: [], announcements: [], gallery: [], team: []
+    });
+
+    const initialData = {
+      "2026": {
+        entries: [
+          { id: "sample-1", type: "donation", date: "2026-09-20",
+            name: "Sample community donor", category: "General fund", amount: 5000 },
+          { id: "sample-2", type: "donation", date: "2026-09-22",
+            name: "Sample youth contribution", category: "General fund", amount: 7500 },
+          { id: "sample-3", type: "donation", date: "2026-09-24",
+            name: "Anonymous (sample)", category: "Puja arrangements", amount: 2500 },
+          { id: "sample-4", type: "expense", date: "2026-09-25",
+            name: "Sample decoration purchase", category: "Decorations", amount: 3200 },
+          { id: "sample-5", type: "expense", date: "2026-09-26",
+            name: "Sample setup wages", category: "Wages", amount: 1800 }
+        ],
+        schedule: [
+          { title: "Morning puja", when: "Date and time to be confirmed",
+            note: "Example program · Begin the celebration together in devotion." },
+          { title: "Community gathering", when: "Date and time to be confirmed",
+            note: "Example program · A welcoming gathering for families and neighbors." },
+          { title: "Cultural evening", when: "Date and time to be confirmed",
+            note: "Example program · Community performances and festive activities." }
+        ],
+        announcements: [
+          "Preview announcement: the confirmed venue, festival dates, and volunteer contacts will be published here."
+        ],
+        gallery: [],
+        team: [
+          { name: "Organizer name to be added", role: "Celebration coordination", contact: "" },
+          { name: "Volunteer name to be added", role: "Accounts & contributions", contact: "" },
+          { name: "Volunteer name to be added", role: "Programs & community support", contact: "" }
+        ]
+      },
+      "2027": emptyYear(),
+      "2028": emptyYear()
+    };
+
+    let data;
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      data = stored ? JSON.parse(stored) : structuredClone(initialData);
+      if (!data || typeof data !== "object" || !data["2026"]) throw new Error();
+      for (const record of Object.values(data)) {
+        for (const key of ["entries", "schedule", "announcements", "gallery", "team"]) {
+          if (!Array.isArray(record[key])) throw new Error();
+        }
+      }
+    } catch {
+      data = structuredClone(initialData);
+    }
+
+    let selectedYear = "2026";
+    const $ = id => document.getElementById(id);
+    const money = amount => new Intl.NumberFormat("en-IN", {
+      style: "currency", currency: "INR", maximumFractionDigits: 2
+    }).format(amount);
+    const esc = value => String(value ?? "").replace(/[&<>"']/g, character => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+    })[character]);
+    const total = rows => rows.reduce((sum, row) => sum + Math.round(row.amount * 100), 0) / 100;
+    const formatDate = value => new Date(value + "T12:00:00").toLocaleDateString("en-IN", {
+      day: "numeric", month: "short", year: "numeric"
+    });
+    const emptyRow = columns => `<tr><td colspan="${columns}" class="empty">No records added for ${esc(selectedYear)} yet.</td></tr>`;
+
+    function safeURL(value) {
+      try {
+        const url = new URL(value);
+        return url.protocol === "https:" ? url.href : "";
+      } catch { return ""; }
+    }
+
+    function render() {
+      const record = data[selectedYear];
+      const donations = record.entries.filter(entry => entry.type === "donation");
+      const expenses = record.entries.filter(entry => entry.type === "expense");
+      const income = total(donations);
+      const spending = total(expenses);
+
+      document.title = `Dasara ${selectedYear} – Veeranjaneya Swami Youth`;
+      document.querySelectorAll("[data-year]").forEach(node => node.textContent = selectedYear);
+      $("year").innerHTML = Object.keys(data).sort().map(year =>
+        `<option value="${esc(year)}">${esc(year)}</option>`
+      ).join("");
+      $("year").value = selectedYear;
+      $("total-income").textContent = money(income);
+      $("total-expenses").textContent = money(spending);
+      $("total-balance").textContent = money(income - spending);
+      $("donor-count").textContent = `${donations.length} recorded contribution${donations.length === 1 ? "" : "s"}`;
+
+      const chronological = rows => [...rows].sort((a, b) => b.date.localeCompare(a.date));
+
+      $("donation-rows").innerHTML = chronological(donations).map(entry => `
+        <tr>
+          <td>${esc(formatDate(entry.date))}</td>
+          <td>${esc(entry.name)}</td>
+          <td>${esc(entry.category)}</td>
+          <td class="amount income">${money(entry.amount)}</td>
+        </tr>`).join("") || emptyRow(4);
+
+      $("ledger-rows").innerHTML = chronological(record.entries).map(entry => `
+        <tr>
+          <td>${esc(formatDate(entry.date))}</td>
+          <td>${esc(entry.name)}</td>
+          <td>${esc(entry.category)}</td>
+          <td>${entry.type === "donation" ? "Income" : "Expense"}</td>
+          <td class="amount ${entry.type === "donation" ? "income" : "expense"}">
+            ${entry.type === "donation" ? "+" : "−"}${money(entry.amount)}
+          </td>
+        </tr>`).join("") || emptyRow(5);
+
+      $("schedule-list").innerHTML = record.schedule.map((item, index) => `
+        <article class="card">
+          <span class="tag">PROGRAM ${String(index + 1).padStart(2, "0")}</span>
+          <h3>${esc(item.title)}</h3>
+          <p class="schedule-time">${esc(item.when)}</p>
+          <p class="muted">${esc(item.note)}</p>
+        </article>`).join("") || '<p class="empty">The schedule has not been published yet.</p>';
+
+      $("announcements").innerHTML = record.announcements.map(text =>
+        `<p>${esc(text)}</p>`
+      ).join("") || '<p>No announcements for this year yet.</p>';
+
+      $("gallery-list").innerHTML = record.gallery.map(item => {
+        const url = safeURL(item.url);
+        if (!url) return "";
+        return item.kind === "video"
+          ? `<article class="card"><span class="tag">VIDEO</span>
+               <h3>${esc(item.title)}</h3>
+               <a href="${esc(url)}" target="_blank" rel="noopener noreferrer">Watch video ↗</a>
+             </article>`
+          : `<figure>
+               <a href="${esc(url)}" target="_blank" rel="noopener noreferrer">
+                 <img src="${esc(url)}" alt="${esc(item.title)}" loading="lazy" referrerpolicy="no-referrer">
+               </a>
+               <figcaption>${esc(item.title)}</figcaption>
+             </figure>`;
+      }).join("") || `
+        <div class="gallery-empty">Celebration photos<br>will appear here.</div>
+        <div class="gallery-empty">Community memories<br>preserved year by year.</div>
+        <div class="gallery-empty">Videos and highlights<br>from our celebrations.</div>`;
+
+      $("team-list").innerHTML = record.team.map(person => `
+        <article class="card">
+          <div class="avatar" aria-hidden="true">${esc(person.name.trim().charAt(0))}</div>
+          <h3>${esc(person.name)}</h3>
+          <p class="muted">${esc(person.role)}</p>
+          ${person.contact ? `<p>${esc(person.contact)}</p>` : '<p class="form-note">Contact details to be added.</p>'}
+        </article>`).join("") || '<p class="empty">The volunteer team has not been announced yet.</p>';
+
+      $("archive-buttons").innerHTML = Object.keys(data).sort().map(year =>
+        `<button class="button light" data-archive="${esc(year)}"
+          aria-pressed="${year === selectedYear}">${esc(year)} ↗</button>`
+      ).join("");
+    }
+
+    function inputField(id, label, type = "text", extra = "") {
+      return `<label for="${id}">${label}</label>
+        <input id="${id}" name="${id}" type="${type}" required ${extra}>`;
+    }
+
+    function renderForm() {
+      const type = $("record-type").value;
+      $("status").textContent = "";
+      if (type === "donation" || type === "expense") {
+        $("dynamic-fields").innerHTML =
+          inputField("entry-name", type === "donation" ? "Public donor name (or Anonymous)" : "Expense description") +
+          '<div class="form-row"><div>' +
+          inputField("entry-amount", "Amount (₹)", "number", 'min="0.01" max="1000000000" step="0.01"') +
+          '</div><div>' + inputField("entry-date", "Date", "date") + '</div></div>' +
+          inputField("entry-category", type === "donation" ? "Purpose / note" : "Category (e.g. Wages, Purchases, Puja)") +
+          (type === "donation" ? '<p class="form-note">Use a public name only when the donor has agreed to publication.</p>' : "");
+      } else if (type === "schedule") {
+        $("dynamic-fields").innerHTML =
+          inputField("entry-title", "Program name") +
+          inputField("entry-when", "Date and time / confirmation status") +
+          '<label for="entry-note">Program details</label><textarea id="entry-note" required></textarea>';
+      } else if (type === "announcement") {
+        $("dynamic-fields").innerHTML =
+          '<label for="entry-note">Announcement</label><textarea id="entry-note" required></textarea>';
+      } else if (type === "gallery") {
+        $("dynamic-fields").innerHTML =
+          '<label for="entry-kind">Media type</label><select id="entry-kind"><option value="photo">Photo</option><option value="video">Video link</option></select>' +
+          inputField("entry-title", "Caption / accessible image description") +
+          inputField("entry-url", "Public HTTPS image or video URL", "url") +
+          '<p class="form-note">Use a direct image URL for photos. Only publish media you have permission to share.</p>';
+      } else {
+        $("dynamic-fields").innerHTML =
+          inputField("entry-name", "Public name") +
+          inputField("entry-role", "Role") +
+          '<label for="entry-contact">Public contact information (optional)</label><input id="entry-contact">' +
+          '<p class="form-note">Only include contact details approved for public display.</p>';
+      }
+    }
+
+    $("admin-form").addEventListener("submit", event => {
+      event.preventDefault();
+      const year = String(Number($("record-year").value));
+      const type = $("record-type").value;
+      const value = id => $(id).value.trim();
+      let collection;
+      let entry;
+
+      if (type === "donation" || type === "expense") {
+        const amount = Number(value("entry-amount"));
+        if (!Number.isFinite(amount) || amount <= 0 || amount > 1e9) return;
+        collection = "entries";
+        entry = {
+          id: globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random()}`,
+          type, name: value("entry-name"), date: value("entry-date"),
+          category: value("entry-category"), amount: Math.round(amount * 100) / 100
+        };
+      } else if (type === "schedule") {
+        collection = "schedule";
+        entry = { title: value("entry-title"), when: value("entry-when"), note: value("entry-note") };
+      } else if (type === "announcement") {
+        collection = "announcements";
+        entry = value("entry-note");
+      } else if (type === "gallery") {
+        const url = safeURL(value("entry-url"));
+        if (!url) {
+          $("status").textContent = "Enter a valid HTTPS URL.";
+          return;
+        }
+        collection = "gallery";
+        entry = { title: value("entry-title"), kind: value("entry-kind"), url };
+      } else {
+        collection = "team";
+        entry = { name: value("entry-name"), role: value("entry-role"), contact: value("entry-contact") };
+      }
+
+      const next = structuredClone(data);
+      next[year] ||= emptyYear();
+      next[year][collection].push(entry);
+
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+      } catch {
+        $("status").textContent = "Could not save: browser storage is unavailable or full. Download a backup of existing records.";
+        return;
+      }
+      data = next;
+      selectedYear = year;
+      render();
+      renderForm();
+      $("status").textContent = `Entry saved for ${year} in this browser.`;
+    });
+
+    function download(filename, content, type) {
+      const url = URL.createObjectURL(new Blob([content], { type }));
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+
+    $("export").addEventListener("click", () => {
+      // Prefix formula-like cells to prevent spreadsheet formula execution.
+      const csvCell = value => {
+        let text = String(value ?? "");
+        if (/^[\s]*[=+\-@]/.test(text) || /^[\t\r\n]/.test(text)) text = "'" + text;
+        return `"${text.replace(/"/g, '""')}"`;
+      };
+      const rows = [
+        ["Date", "Description", "Category", "Type", "Amount INR"],
+        ...data[selectedYear].entries.map(entry => [
+          entry.date, entry.name, entry.category,
+          entry.type === "donation" ? "Income" : "Expense", entry.amount
+        ])
+      ];
+      download(`dasara-${selectedYear}-ledger.csv`,
+        "\uFEFF" + rows.map(row => row.map(csvCell).join(",")).join("\r\n"),
+        "text/csv;charset=utf-8");
+    });
+
+    $("backup").addEventListener("click", () => {
+      download("dasara-all-years-backup.json", JSON.stringify(data, null, 2), "application/json");
+    });
+
+    $("share").addEventListener("click", () => {
+      const published = /^https?:$/.test(location.protocol);
+      const text = `Join Veeranjaneya Swami Youth for Dasara ${selectedYear}. ` +
+        "See celebration programs, announcements, and community accounts." +
+        (published ? ` ${location.href.split("#")[0]}#schedule` :
+          " The website link will be available after publication.");
+      window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank", "noopener,noreferrer");
+    });
+
+    $("year").addEventListener("change", event => {
+      selectedYear = event.target.value;
+      render();
+    });
+
+    $("archive-buttons").addEventListener("click", event => {
+      const button = event.target.closest("[data-archive]");
+      if (!button) return;
+      selectedYear = button.dataset.archive;
+      render();
+      $("home").scrollIntoView();
+    });
+
+    $("open-admin").addEventListener("click", () => {
+      $("record-year").value = selectedYear;
+      renderForm();
+      $("admin-dialog").showModal();
+    });
+
+    $("record-type").addEventListener("change", renderForm);
+    $("donation-info").addEventListener("click", () => $("info-dialog").showModal());
+    document.querySelectorAll("[data-close]").forEach(button =>
+      button.addEventListener("click", () => $(button.dataset.close).close())
+    );
+
+    render();
+  </script>
+</body>
+</html>
