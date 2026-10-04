@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Team Only</title>
+<style>
+:root{--saffron:#e8590c;--maroon:#7a1022;--gold:#f5b700;--cream:#fff6e5;--ink:#2b1408;--green:#15803d;--red:#b91c1c}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,Segoe UI,sans-serif;background:var(--cream);color:var(--ink)}
+.lock{max-width:360px;margin:18vh auto;background:#fff;border-radius:16px;padding:1.6rem;text-align:center;box-shadow:0 8px 24px rgba(122,16,34,.2);border-top:6px solid var(--saffron)}
+input,button{font-size:1rem;padding:.7rem 1rem;border-radius:10px;border:1px solid #ccc;width:100%;margin-top:.7rem}
+button{background:var(--maroon);color:#fff;border:0;font-weight:bold;cursor:pointer}
+#err{color:var(--red);min-height:1.2em;margin-top:.5rem}
+#app{display:none;max-width:900px;margin:0 auto;padding:1rem}
+header{background:linear-gradient(135deg,var(--maroon),var(--saffron));color:#fff;padding:1.2rem;border-radius:16px;text-align:center}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.8rem;margin:1rem 0}
+.stat{background:#fff;border-radius:14px;padding:1rem;box-shadow:0 3px 10px rgba(0,0,0,.1)}
+.stat small{color:#7a6f66}.stat b{display:block;font-size:1.6rem;margin-top:.2rem}
+h2{color:var(--maroon);margin:1.4rem 0 .5rem}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,.08)}
+th,td{padding:.6rem .8rem;text-align:left;border-bottom:1px solid #eee}
+th{background:#fdeede}td.r,th.r{text-align:right}
+.in{color:var(--green)}.out{color:var(--red)}
+.hint{color:#7a6f66;font-size:.85rem;margin-top:1rem}
+</style>
+</head>
+<body>
+<div class="lock" id="lock">
+  <div style="font-size:2rem">🔒</div>
+  <h3>Team members only</h3>
+  <input id="pw" type="password" placeholder="Enter password" autocomplete="current-password">
+  <button id="go">Open</button>
+  <div id="err"></div>
+</div>
+
+<div id="app">
+  <header><h2 style="margin:0;color:#fff">Dasara 2026 – Fund Details</h2><div id="upd"></div></header>
+  <div class="stats" id="stats"></div>
+  <h2>Donors</h2><table id="donors"></table>
+  <h2>Expenses</h2><table id="exp"></table>
+  <p class="hint">Private page. Do not share the link or password outside the core team.</p>
+</div>
+
+<script>
+const PAYLOAD = "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";
+
+async function unlock(pw){
+  const raw = Uint8Array.from(atob(PAYLOAD), c => c.charCodeAt(0));
+  const salt = raw.slice(0,16), iv = raw.slice(16,28), ct = raw.slice(28);
+  const km = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveKey']);
+  const key = await crypto.subtle.deriveKey({name:'PBKDF2', salt, iterations:150000, hash:'SHA-256'}, km, {name:'AES-GCM', length:256}, false, ['decrypt']);
+  const pt = await crypto.subtle.decrypt({name:'AES-GCM', iv}, key, ct);
+  return JSON.parse(new TextDecoder().decode(pt));
+}
+const inr = n => '₹' + Math.round(n).toLocaleString('en-IN');
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function render(d){
+  const dep = d.entries.filter(e => e.type === 'deposit'), out = d.entries.filter(e => e.type === 'outflow');
+  const tIn = dep.reduce((a,e) => a + e.amount, 0), tOut = out.reduce((a,e) => a + e.amount, 0);
+  document.getElementById('upd').textContent = 'Updated ' + d.updated;
+  document.getElementById('stats').innerHTML =
+    `<div class="stat"><small>Collected (${dep.length})</small><b class="in">${inr(tIn)}</b></div>
+     <div class="stat"><small>Spent (${out.length})</small><b class="out">${inr(tOut)}</b></div>
+     <div class="stat"><small>Balance</small><b>${inr(tIn - tOut)}</b></div>`;
+  document.getElementById('donors').innerHTML = '<tr><th>#</th><th>Name</th><th>Date</th><th class="r">Amount</th></tr>' +
+    dep.map((e,i) => `<tr><td>${i+1}</td><td>${esc(e.person)}</td><td>${esc(e.date)}</td><td class="r in">${inr(e.amount)}</td></tr>`).join('') +
+    `<tr><th colspan="3">Total</th><th class="r">${inr(tIn)}</th></tr>`;
+  document.getElementById('exp').innerHTML = '<tr><th>#</th><th>Paid to / For</th><th>Category</th><th>Date</th><th class="r">Amount</th></tr>' +
+    out.map((e,i) => `<tr><td>${i+1}</td><td>${esc(e.person)} ${esc(e.purpose)}</td><td>${esc(e.category)}</td><td>${esc(e.date)}</td><td class="r out">${inr(e.amount)}</td></tr>`).join('') +
+    `<tr><th colspan="4">Total</th><th class="r">${inr(tOut)}</th></tr>`;
+}
+
+async function tryOpen(){
+  const err = document.getElementById('err'); err.textContent = '';
+  try {
+    const data = await unlock(document.getElementById('pw').value);
+    render(data);
+    document.getElementById('lock').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+  } catch(e) { err.textContent = 'Wrong password'; }
+}
+document.getElementById('go').onclick = tryOpen;
+document.getElementById('pw').addEventListener('keydown', e => { if (e.key === 'Enter') tryOpen(); });
+</script>
+</body>
+</html>
