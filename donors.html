@@ -3,87 +3,815 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
-<title>Team Only</title>
+<title>Dasara 2026 – Veeranjaneya Swami Youth</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Poppins:wght@400;500;600&family=Noto+Sans+Telugu:wght@400;600&display=swap" rel="stylesheet">
 <style>
-:root{--saffron:#e8590c;--maroon:#7a1022;--gold:#f5b700;--cream:#fff6e5;--ink:#2b1408;--green:#15803d;--red:#b91c1c}
-*{box-sizing:border-box}
-body{margin:0;font-family:system-ui,Segoe UI,sans-serif;background:var(--cream);color:var(--ink)}
-.lock{max-width:360px;margin:18vh auto;background:#fff;border-radius:16px;padding:1.6rem;text-align:center;box-shadow:0 8px 24px rgba(122,16,34,.2);border-top:6px solid var(--saffron)}
-input,button{font-size:1rem;padding:.7rem 1rem;border-radius:10px;border:1px solid #ccc;width:100%;margin-top:.7rem}
-button{background:var(--maroon);color:#fff;border:0;font-weight:bold;cursor:pointer}
-#err{color:var(--red);min-height:1.2em;margin-top:.5rem}
-#app{display:none;max-width:900px;margin:0 auto;padding:1rem}
-header{background:linear-gradient(135deg,var(--maroon),var(--saffron));color:#fff;padding:1.2rem;border-radius:16px;text-align:center}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.8rem;margin:1rem 0}
-.stat{background:#fff;border-radius:14px;padding:1rem;box-shadow:0 3px 10px rgba(0,0,0,.1)}
-.stat small{color:#7a6f66}.stat b{display:block;font-size:1.6rem;margin-top:.2rem}
-h2{color:var(--maroon);margin:1.4rem 0 .5rem}
-table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 3px 10px rgba(0,0,0,.08)}
-th,td{padding:.6rem .8rem;text-align:left;border-bottom:1px solid #eee}
-th{background:#fdeede}td.r,th.r{text-align:right}
-.in{color:var(--green)}.out{color:var(--red)}
-.hint{color:#7a6f66;font-size:.85rem;margin-top:1rem}
+/* ===== COLOURS & FONTS ===== */
+:root{
+  --bg:#12050a; --panel:rgba(34,12,18,.58); --line:rgba(255,205,120,.2);
+  --gold:#E9BC52; --gold2:#FFE2A0; --saffron:#F0792B; --copper:#C8743A;
+  --cream:#FFF3DC; --mute:#C9B59A; --green:#7FD99A; --red:#FF8C6B;
+  --head:'Playfair Display','Noto Sans Telugu',serif;
+  --body:'Poppins','Noto Sans Telugu',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);color:var(--cream);background:radial-gradient(1200px 800px at 70% 10%,#3a0f14 0%,var(--bg) 60%) fixed;line-height:1.6;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+/* your own background picture: upload it as images/background.jpg */
+body::before{content:"";position:fixed;inset:0;z-index:0;background:url('images/background.jpg') center/cover no-repeat;opacity:.28;pointer-events:none}
+#gl{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;pointer-events:none}
+.glow{position:fixed;left:0;top:0;width:420px;height:420px;margin:-210px 0 0 -210px;border-radius:50%;pointer-events:none;z-index:1;background:radial-gradient(circle,rgba(240,121,43,.14),transparent 65%);transition:opacity .3s}
+main,nav,footer{position:relative;z-index:2}
+/* nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 4vw;background:linear-gradient(rgba(18,5,10,.85),transparent);backdrop-filter:blur(6px)}
+nav .brand{font-family:var(--head);font-weight:800;font-size:1.15rem;color:var(--gold)}
+nav .links{display:flex;gap:22px;font-size:.88rem;color:var(--mute)}
+nav .links a:hover{color:var(--gold2)}
+select{font:inherit;font-size:.85rem;padding:7px 14px;border-radius:30px;border:1px solid var(--gold);background:rgba(18,5,10,.7);color:var(--gold2)}
+/* layout */
+.stage{position:relative;min-height:100vh;display:flex;align-items:center;padding:110px 6vw}
+.stage.right{justify-content:flex-end}
+.stage.center{justify-content:center;text-align:center}
+.col{width:min(540px,46vw)}
+.tall{min-height:230vh;align-items:flex-start}
+.tall .col{position:sticky;top:15vh}
+.spacer{display:none}
+.kicker{letter-spacing:.28em;text-transform:uppercase;font-size:.75rem;color:var(--gold);margin-bottom:14px}
+.big{font-family:var(--head);font-weight:800;font-size:clamp(3.2rem,9vw,8rem);line-height:.98}
+h2{font-family:var(--head);font-weight:800;font-size:clamp(2rem,4.6vw,3.6rem);line-height:1.05;margin-bottom:14px}
+.gold{background:linear-gradient(120deg,var(--gold2),var(--gold) 55%,var(--saffron));-webkit-background-clip:text;background-clip:text;color:transparent}
+p.lead{color:var(--mute);font-size:1.05rem;max-width:34em}
+.tel{font-family:'Noto Sans Telugu',var(--body);color:var(--gold2);margin-top:10px;font-size:1.05rem}
+.mask{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.12em}
+.mask>span{display:inline-block;transform:translateY(112%);transition:transform 1s cubic-bezier(.2,.8,.2,1)}
+.in .mask>span,.mask.in>span{transform:none}
+.rv{opacity:0;transform:translateY(40px) scale(.97);filter:blur(6px);transition:opacity .9s,transform .9s cubic-bezier(.2,.8,.2,1),filter .9s}
+.rv.in{opacity:1;transform:none;filter:none}
+.btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.btn{display:inline-block;padding:14px 28px;border-radius:40px;font-weight:600;background:linear-gradient(120deg,var(--gold2),var(--gold));color:#3a1608;transition:box-shadow .3s}
+.btn:hover{box-shadow:0 10px 30px rgba(233,188,82,.35)}
+.btn.ghost{background:transparent;color:var(--gold2);border:1px solid var(--gold)}
+.mini{display:flex;flex-wrap:wrap;gap:26px;margin-top:34px}
+.mini div small{display:block;color:var(--mute);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase}
+.mini div b{font-family:var(--head);font-size:1.7rem}
+.glass{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:22px;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.steps{display:grid;gap:14px;margin-top:22px}
+.steps div{display:flex;gap:16px;align-items:flex-start;padding:14px 0;border-top:1px solid var(--line)}
+.steps i{font-style:normal;font-family:var(--head);font-size:1.5rem;color:var(--gold)}
+.steps b{display:block}.steps span{color:var(--mute);font-size:.92rem}
+input[type=search]{width:100%;padding:11px 16px;margin:10px 0 8px;border-radius:30px;border:1px solid var(--line);background:rgba(0,0,0,.25);color:var(--cream);font:inherit}
+.list{max-height:56vh;overflow:auto;scrollbar-width:thin;scrollbar-color:var(--gold) transparent}
+.li{display:flex;justify-content:space-between;gap:12px;padding:11px 2px;border-bottom:1px solid var(--line);font-size:.95rem}
+.li small{color:var(--mute);display:block;font-size:.75rem}
+.li b{color:var(--gold2);white-space:nowrap}
+.li.out b{color:var(--red)}
+.tot{display:flex;justify-content:space-between;padding-top:14px;font-weight:600}
+.bar{margin-top:12px}.bar .r{display:flex;justify-content:space-between;font-size:.92rem}
+.bar .t{height:7px;border-radius:5px;background:rgba(255,255,255,.1);margin-top:5px;overflow:hidden}
+.bar .f{height:100%;border-radius:5px;background:linear-gradient(90deg,var(--copper),var(--saffron))}
+.num{font-family:var(--head);font-weight:800;font-size:clamp(3rem,10vw,7rem);line-height:1}
+.legend{display:flex;justify-content:center;gap:22px;margin-top:14px;color:var(--mute);font-size:.88rem}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px}
+.news{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;max-width:1000px;width:100%}
+.tilt{transform-style:preserve-3d;transition:transform .2s ease-out}
+.news .glass h3{font-family:var(--head);color:var(--gold2);font-size:1.4rem}
+.news small{color:var(--mute)}
+.strip{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 6vw 22px;margin:0 -6vw;scrollbar-width:thin;scrollbar-color:var(--gold) transparent}
+.strip>*{flex:0 0 min(360px,78vw);scroll-snap-align:start}
+.strip iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:16px}
+.strip figure img{width:100%;height:240px;object-fit:cover;border-radius:16px;display:block}
+.strip figure.ph{height:240px;display:flex;align-items:center;justify-content:center;border-radius:16px;background:linear-gradient(135deg,#5a1f10,#2a0a14);border:1px solid var(--line);color:var(--gold2);text-align:center}
+.strip figcaption{color:var(--mute);font-size:.85rem;margin-top:6px}
+.strip figure.ph figcaption{margin:0;color:var(--gold2);font-size:1rem}
+.empty{color:var(--mute);padding:14px 0}
+.years{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin:26px 0}
+.years button{font-family:var(--head);font-weight:800;font-size:clamp(1.6rem,5vw,3rem);padding:8px 26px;border-radius:60px;border:1px solid var(--line);background:transparent;color:var(--mute);cursor:pointer;transition:.3s}
+.years button.on,.years button:hover{background:linear-gradient(120deg,var(--gold2),var(--gold));color:#3a1608;border-color:transparent}
+#msg{display:none;position:fixed;bottom:12px;left:50%;transform:translateX(-50%);z-index:40;background:#5a1f10;color:#fff;padding:8px 18px;border-radius:30px;font-size:.85rem}
+.nogl #gl{display:none}
+.foot{color:var(--mute);font-size:.85rem;margin-top:22px}
+/* mobile: pot lives in the top part of the screen, content below it */
+@media(max-width:820px){
+  nav .links{display:none}
+  .stage{display:block;padding:0 18px 60px;min-height:100vh}
+  .spacer{display:block;height:42vh}
+  .col{width:100%}
+  .tall{min-height:200vh}
+  .tall .col{top:44vh}
+  .list{max-height:30vh}
+  .stage.right,.stage.center{text-align:left}
+  .m{display:none}
+  .glow{display:none}
+}
+@media(prefers-reduced-motion:reduce){.rv,.mask>span{transition:none}}
+/* ===== v2: tables, admin, programme, modal ===== */
+.hd{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.btn.sm{padding:9px 18px;font-size:.82rem;border:0;cursor:pointer;font-family:inherit;white-space:nowrap}
+.btn.ghost.sm{border:1px solid var(--gold)}
+.tb{width:100%;border-collapse:collapse;font-size:.92rem}
+.tb th{position:sticky;top:0;background:#2b1017;color:var(--gold);font-weight:500;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;text-align:left;padding:8px 6px;z-index:1}
+.tb td{padding:9px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+.tb td:first-child,.tb th:first-child{color:var(--mute);width:2.2em}
+.tb .amt{text-align:right;white-space:nowrap;color:var(--gold2);font-weight:600}
+.tb th.amt{color:var(--gold)}
+.tb.out .amt{color:var(--red)}
+.tb small{display:block;color:var(--mute);font-size:.72rem}
+.adm{display:none}
+body.admin td.adm,body.admin th.adm{display:table-cell;white-space:nowrap;text-align:right;width:4.4em}
+body.admin .adm.show{display:inline-flex}
+.ic{background:none;border:1px solid var(--line);color:var(--gold2);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:.8rem;margin-left:4px}
+.ic:hover{background:var(--gold);color:#3a1608}
+.sum{max-width:640px;margin:18px auto 0;text-align:left}
+.sum td{padding:14px 10px;font-size:1.05rem}
+.sum td:first-child{width:auto;color:var(--cream)}
+.sum td small{display:inline;margin-left:6px}
+.sum .amt{font-family:var(--head);font-size:1.5rem}
+.sum tr.final td{border-bottom:0;border-top:2px solid var(--gold);font-weight:700}
+.sum tr.final .amt{font-size:2rem}
+.pg{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:18px 0}
+.pg button{font:inherit;font-size:.92rem;padding:10px 20px;border-radius:40px;border:1px solid var(--gold);background:transparent;color:var(--gold2);cursor:pointer;transition:.3s}
+.pg button.on,.pg button:hover{background:linear-gradient(120deg,var(--gold2),var(--gold));color:#3a1608}
+.pcard{max-width:720px;margin:0 auto;text-align:left}
+.pcard h3{font-family:var(--head);font-size:1.9rem;color:var(--gold2);line-height:1.15}
+.pcard .tel{margin-top:4px}
+.pcard p.tx{color:var(--cream);margin-top:14px}
+.pcard p.tx.te{font-family:'Noto Sans Telugu',var(--body);color:var(--gold2)}
+.pcard .row{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;align-items:center}
+.pcard .when{display:inline-block;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.spk{border:0;cursor:pointer;font:inherit;font-weight:600;font-size:.85rem;padding:9px 16px;border-radius:40px;background:rgba(233,188,82,.15);color:var(--gold2);border:1px solid var(--gold)}
+.spk.on{background:var(--saffron);color:#fff;border-color:var(--saffron)}
+.admbtn{font:inherit;font-size:.8rem;padding:7px 14px;border-radius:30px;border:1px solid var(--gold);background:rgba(18,5,10,.7);color:var(--gold2);cursor:pointer;white-space:nowrap}
+.navr{display:flex;gap:8px;align-items:center}
+.pyr{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 10px}
+.pyr button{font:inherit;font-size:.8rem;padding:6px 14px;border-radius:30px;border:1px solid var(--line);background:transparent;color:var(--mute);cursor:pointer}
+.pyr button.on{border-color:var(--gold);color:var(--gold2)}
+.strip figure{position:relative}
+.strip .ic.adm{position:absolute;top:8px;right:8px;background:rgba(18,5,10,.8);margin:0}
+#modal{display:none;position:fixed;inset:0;z-index:60;background:rgba(10,2,5,.72);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:16px}
+#modal.on{display:flex}
+#modal .box{width:min(480px,100%);max-height:92vh;overflow:auto;background:#240c13;border:1px solid var(--gold);border-radius:22px;padding:24px}
+#modal h3{font-family:var(--head);font-size:1.6rem;color:var(--gold2);margin-bottom:12px}
+#modal label{display:block;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin:12px 0 4px}
+#modal input,#modal textarea,#modal select{width:100%;padding:11px 14px;border-radius:14px;border:1px solid var(--line);background:rgba(0,0,0,.3);color:var(--cream);font:inherit;font-size:16px}
+#modal textarea{min-height:90px;resize:vertical}
+#modal .acts{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}
+#modal .hint{color:var(--mute);font-size:.8rem;margin-top:8px}
+@media(max-width:820px){
+  nav{padding:10px 14px;gap:6px}
+  nav .brand{font-size:.82rem;max-width:44vw;line-height:1.2}
+  .admbtn span{display:none}
+  .admbtn{padding:7px 11px}
+  select{padding:6px 10px}
+  .hd .btn.sm{padding:8px 13px;font-size:.78rem}
+  .tb{font-size:.85rem}
+  .sum td{font-size:.95rem}.sum .amt{font-size:1.15rem}.sum tr.final .amt{font-size:1.4rem}
+  .pcard h3{font-size:1.5rem}
+}
 </style>
 </head>
 <body>
-<div class="lock" id="lock">
-  <div style="font-size:2rem">🔒</div>
-  <h3>Team members only</h3>
-  <input id="pw" type="password" placeholder="Enter password" autocomplete="current-password">
-  <button id="go">Open</button>
-  <div id="err"></div>
-</div>
+<canvas id="gl"></canvas>
+<div class="glow" id="glow"></div>
+<div id="msg"></div>
+<div id="modal"><div class="box" id="mbox"></div></div>
 
-<div id="app">
-  <header><h2 style="margin:0;color:#fff">Dasara 2026 – Fund Details</h2><div id="upd"></div></header>
-  <div class="stats" id="stats"></div>
-  <h2>Donors</h2><table id="donors"></table>
-  <h2>Expenses</h2><table id="exp"></table>
-  <p class="hint">Private page. Do not share the link or password outside the core team.</p>
-</div>
+<nav>
+  <a class="brand" href="#top">🔱 Veeranjaneya Swami Youth</a>
+  <div class="links"><a href="#donors">Donors</a><a href="#wages">Wages</a><a href="#summary">Summary</a><a href="#program">Programme</a><a href="#news">Announcements</a><a href="#media">Photos</a><a href="#years">Years</a></div>
+  <div class="navr"><button class="admbtn" id="admBtn" aria-label="Admin login"><b>🔑</b><span> Admin</span></button><label><select id="yearSel" aria-label="Year"></select></label></div>
+</nav>
 
+<main>
+  <section class="stage" id="top" data-pose="hero">
+    <div class="spacer"></div>
+    <div class="col">
+      <p class="kicker rv">Sri Veeranjaneya Swami Youth · Nellore</p>
+      <h1 class="big"><span class="mask"><span>Dasara</span></span><br><span class="mask gold"><span id="heroYear">2026</span></span></h1>
+      <p class="lead rv" style="margin-top:20px">Every offering and every rupee of the festival, counted in the open and shared with everyone.</p>
+      <p class="tel rv">దసరా ఉత్సవాలు · శ్రీ వీరాంజనేయ స్వామి యువజన సంఘం</p>
+      <div class="btns rv"><a class="btn mag" href="#donors">See the donors</a><a class="btn ghost mag" href="#news">Announcements</a></div>
+      <div class="mini rv" id="miniStats"></div>
+    </div>
+  </section>
+
+  <section class="stage right" data-pose="intro">
+    <div class="spacer"></div>
+    <div class="col">
+      <p class="kicker rv">How it works</p>
+      <h2><span class="mask"><span>One kalasam,</span></span><br><span class="mask gold"><span>every coin counted.</span></span></h2>
+      <div class="steps">
+        <div class="rv"><i>01</i><p><b>An offering is made</b><span>A leader records the donor's name and amount.</span></p></div>
+        <div class="rv"><i>02</i><p><b>A gold coin drops in</b><span>Each coin carries the donor's name and amount.</span></p></div>
+        <div class="rv"><i>03</i><p><b>Wages leave as copper</b><span>Every payment is shown with who it was for.</span></p></div>
+        <div class="rv"><i>04</i><p><b>The balance stays visible</b><span>What is left is always there for everyone to see.</span></p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stage right tall" id="donors" data-pose="donors">
+    <div class="spacer"></div>
+    <div class="col glass rv">
+      <div class="hd"><div><p class="kicker">Offerings</p>
+      <h2><span class="mask"><span>Donors</span></span></h2></div>
+      <button class="btn sm" id="addDonor">＋ Add donor</button></div>
+      <input type="search" id="q" placeholder="Search a name…">
+      <div class="list" id="dList"></div>
+      <div class="tot"><span id="dCount"></span><span class="gold" id="dTot"></span></div>
+    </div>
+  </section>
+
+  <section class="stage tall" id="wages" data-pose="wages">
+    <div class="spacer"></div>
+    <div class="col glass rv">
+      <div class="hd"><div><p class="kicker">Spent</p>
+      <h2><span class="mask"><span>Wages &amp; expenses</span></span></h2></div>
+      <button class="btn sm" id="addWage">＋ Add wages</button></div>
+      <div id="cats"></div>
+      <div class="list" id="eList" style="margin-top:12px"></div>
+      <div class="tot"><span id="eCount"></span><span id="eTot" style="color:var(--red)"></span></div>
+    </div>
+  </section>
+
+  <section class="stage center" id="balance" data-pose="balance" style="min-height:140vh">
+    <div class="spacer"></div>
+    <div class="col rv" style="position:sticky;top:64vh;width:min(720px,92vw)">
+      <p class="kicker">Balance in hand</p>
+      <div class="num gold" id="balNum">₹0</div>
+      <p class="lead" style="margin:10px auto 0" id="balSub"></p>
+      <div class="legend"><span><i style="background:var(--gold)"></i>Remaining</span><span><i style="background:var(--copper)"></i>Spent</span></div>
+    </div>
+  </section>
+
+  <section class="stage center" id="summary" data-pose="summary" style="min-height:auto;padding-top:90px;padding-bottom:90px">
+    <div style="width:min(760px,100%)">
+      <p class="kicker">Final account</p>
+      <h2><span class="mask"><span>Donors − Wages = </span></span><span class="mask gold"><span>Remaining</span></span></h2>
+      <div class="glass"><table class="tb sum" id="sumTb"></table></div>
+    </div>
+  </section>
+
+  <section class="stage center" id="program" data-pose="program" style="min-height:auto;padding-top:90px;padding-bottom:90px">
+    <div style="width:min(860px,100%)">
+      <p class="kicker">Day by day</p>
+      <h2><span class="mask"><span>Programme</span></span></h2>
+      <div class="pg" id="pgBtns"></div>
+      <div class="glass pcard" id="pgCard"></div>
+      <div class="btns" style="justify-content:center"><button class="btn ghost sm adm show" id="addProg">＋ Add session</button><button class="btn ghost sm adm show" id="saveProg" style="display:none">Save as editable programme</button></div>
+    </div>
+  </section>
+
+  <section class="stage center" id="news" data-pose="news">
+    <div style="width:100%;display:flex;flex-direction:column;align-items:center;gap:22px">
+      <div><p class="kicker">Latest</p><h2><span class="mask"><span>Announcements</span></span></h2></div>
+      <div class="news" id="newsList"></div>
+      <button class="btn ghost sm adm show" id="addNews">＋ Add announcement</button>
+    </div>
+  </section>
+
+  <section class="stage" id="media" data-pose="media" style="display:block;padding-top:130px">
+    <div class="hd"><div><p class="kicker rv">Moments</p>
+    <h2><span class="mask"><span>Videos &amp; photos</span></span></h2></div>
+    <div class="btns" style="margin:0"><button class="btn sm" id="addPhoto">📷 Upload photos</button><button class="btn ghost sm adm show" id="addVideo">＋ Video link</button></div></div>
+    <div class="pyr" id="photoYears"></div>
+    <div class="strip" id="strip"></div>
+  </section>
+
+  <section class="stage center" id="years" data-pose="years" style="align-items:flex-end;padding-bottom:9vh">
+    <div class="spacer"></div>
+    <div class="col rv" style="width:min(900px,92vw)">
+      <p class="kicker">Plan ahead</p>
+      <h2><span class="mask"><span>Dasara</span></span> <span class="mask gold"><span id="yrRange">2024 – 2030</span></span></h2>
+      <div class="years" id="yearBtns"></div>
+      <div id="leaderLink"></div>
+      <p class="foot">🙏 Jai Veeranjaneya Swami 🙏<br>© Veeranjaneya Swami Youth, Nellore</p>
+    </div>
+  </section>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-const PAYLOAD = "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";
+/* ================= SETTINGS ================= */
+const CONFIG = {
+  years: [2024, 2025, 2026, 2027, 2028, 2029, 2030],
+  startYear: 2026,
+  /* The 4 admins (names shown in the login box). PINs live ONLY in the Apps Script (Code.gs), never here. */
+  admins: ["Pasupuleti Suneel", "Pasupuleti Kumar", "Pasupuleti Surya", "Admin 4"],
+  /* Paste your Apps Script Web App link here (ends with /exec). Empty = demo mode (PIN 1234, changes are not saved). */
+  api: "",
+  /* Only needed if you do NOT use api: published Google Sheet CSV links (view-only). */
+  sheets: { donors: "", expenses: "", news: "", videos: "", photos: "", program: "" },
+  leaderSheetLink: ""
+};
+const KEYS = ["donors","expenses","news","videos","photos","program"];
+const defProgram = y => [
+  {order:1,day:"Day 1",title:"Kalasa Mahotsavam",title_te:"కలశ మహోత్సవం",
+   text:`Dasara ${y} begins with the Kalasa Mahotsavam, organised by Sri Veeranjaneya Swami Youth, Nellore. All devotees are warmly invited to take part and receive the blessings.`,
+   text_te:`శ్రీ వీరాంజనేయ స్వామి యువజన సంఘం, నెల్లూరు ఆధ్వర్యంలో దసరా ${y} ఉత్సవాలు కలశ మహోత్సవంతో ప్రారంభమవుతాయి. భక్తులందరూ పాల్గొని స్వామివారి ఆశీస్సులు పొందగలరు.`},
+  {order:2,day:"Every day",title:"Daily Veshalu",title_te:"ప్రతిరోజు వేషాలు",
+   text:"Every day of the festival, the Daily Veshalu are presented. All devotees and families are invited to come and watch.",
+   text_te:"ఉత్సవాల్లో ప్రతిరోజు వేషాలు ప్రదర్శించబడతాయి. భక్తులందరూ కుటుంబ సమేతంగా విచ్చేసి తిలకించగలరు."},
+  {order:3,day:"Date to be announced",title:"Annadanam",title_te:"అన్నదానం",
+   text:"Annadanam, the community meal offering, will be served to all devotees. Everyone is welcome.",
+   text_te:"భక్తులందరికీ అన్నదానం ఏర్పాటు చేయబడింది. అందరూ విచ్చేసి ప్రసాదం స్వీకరించగలరు."},
+  {order:4,day:y===2026?"19 October 2026":"Date to be announced",title:"Mahishasura Veshalu",title_te:"మహిషాసుర వేషాలు",
+   text:"The Mahishasura Veshalu programme will be presented. All devotees are invited to attend.",
+   text_te:"మహిషాసుర వేషాల ప్రదర్శన జరుగును. భక్తులందరూ విచ్చేసి తిలకించగలరు."},
+  {order:5,day:"Last day",title:"Ammavari Utsavam",title_te:"అమ్మవారి ఉత్సవం",
+   text:"On the last day of the festival, the Ammavari Utsavam will be celebrated with devotion. All devotees are invited to join and receive Ammavari's blessings.",
+   text_te:"ఉత్సవాల చివరి రోజున అమ్మవారి ఉత్సవం భక్తిశ్రద్ధలతో జరుగును. భక్తులందరూ పాల్గొని అమ్మవారి ఆశీస్సులు పొందగలరు."}
+];
+const DEMO = {
+  donors: [
+    {year:2026,date:"2026-10-01",name:"Pasupuleti Kumar & Mahesh",amount:10000},
+    {year:2026,date:"2026-10-03",name:"Ramisetti Satish",amount:2000},
+    {year:2026,date:"2026-10-03",name:"Amarnad",amount:2000},
+    {year:2026,date:"2026-10-03",name:"Ramisetti (to confirm)",amount:1126},
+    {year:2026,date:"2026-10-03",name:"Siganam Buchayya",amount:1116},
+    {year:2026,date:"2026-10-03",name:"Modu Gangaraju",amount:1000},
+    {year:2026,date:"2026-10-03",name:"P. Srinivas",amount:510},
+    {year:2026,date:"2026-10-03",name:"CH. Venkata Ramanaiah",amount:501},
+    {year:2026,date:"2026-10-03",name:"Venkataramanamma",amount:500},
+    {year:2026,date:"2026-10-03",name:"Name to confirm",amount:500},
+    {year:2026,date:"2026-10-03",name:"Name to confirm",amount:500},
+    {year:2026,date:"2026-10-03",name:"Ramisetti Suresh",amount:500},
+    {year:2026,date:"2026-10-03",name:"CH. Venkata Subbaiah",amount:216},
+    {year:2026,date:"2026-10-03",name:"B. Mastan",amount:116},
+    {year:2026,date:"2026-10-03",name:"Madavaram Krishnayya",amount:100}
+  ],
+  expenses: [
+    {year:2026,date:"2026-10-01",name:"Tappetlu (advance)",category:"Wages",amount:500},
+    {year:2026,date:"2026-10-03",name:"Mahishasura Veshalu (advance)",category:"Veshalu",amount:2000},
+    {year:2026,date:"2026-10-03",name:"Decoration – star, screens, hangings",category:"Decoration",amount:8800}
+  ],
+  news: [
+    {year:2026,date:"2026-10-04",title:"Welcome to Dasara 2026",message:"Donations are being collected. Please give your deposit details to the committee leaders."},
+    {year:2026,date:"2026-10-19",title:"Mahishasura Mardini Veshalu",message:"Programme on 19 October 2026."}
+  ],
+  videos: [],
+  photos: [1,2,3,4].map(n => ({year:2026,file:"photo"+n+".jpg",caption:"Photo "+n})),
+  program: defProgram(2026).map(r=>({year:2026,...r}))
+};
 
-async function unlock(pw){
-  const raw = Uint8Array.from(atob(PAYLOAD), c => c.charCodeAt(0));
-  const salt = raw.slice(0,16), iv = raw.slice(16,28), ct = raw.slice(28);
-  const km = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveKey']);
-  const key = await crypto.subtle.deriveKey({name:'PBKDF2', salt, iterations:150000, hash:'SHA-256'}, km, {name:'AES-GCM', length:256}, false, ['decrypt']);
-  const pt = await crypto.subtle.decrypt({name:'AES-GCM', iv}, key, ct);
-  return JSON.parse(new TextDecoder().decode(pt));
-}
-const inr = n => '₹' + Math.round(n).toLocaleString('en-IN');
-const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+/* ================= DATA (same as before) ================= */
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const inr = n => "₹" + Math.round(n).toLocaleString("en-IN");
+const amt = r => parseFloat(String(r.amount || 0).replace(/[^\d.-]/g, "")) || 0;
+const clamp = (v,a=0,b=1) => Math.min(b,Math.max(a,v));
+const lerp = (a,b,t) => a+(b-a)*t;
+const sm = t => t*t*(3-2*t);
+const state = { year: CONFIG.startYear, data: {} };
 
-function render(d){
-  const dep = d.entries.filter(e => e.type === 'deposit'), out = d.entries.filter(e => e.type === 'outflow');
-  const tIn = dep.reduce((a,e) => a + e.amount, 0), tOut = out.reduce((a,e) => a + e.amount, 0);
-  document.getElementById('upd').textContent = 'Updated ' + d.updated;
-  document.getElementById('stats').innerHTML =
-    `<div class="stat"><small>Collected (${dep.length})</small><b class="in">${inr(tIn)}</b></div>
-     <div class="stat"><small>Spent (${out.length})</small><b class="out">${inr(tOut)}</b></div>
-     <div class="stat"><small>Balance</small><b>${inr(tIn - tOut)}</b></div>`;
-  document.getElementById('donors').innerHTML = '<tr><th>#</th><th>Name</th><th>Date</th><th class="r">Amount</th></tr>' +
-    dep.map((e,i) => `<tr><td>${i+1}</td><td>${esc(e.person)}</td><td>${esc(e.date)}</td><td class="r in">${inr(e.amount)}</td></tr>`).join('') +
-    `<tr><th colspan="3">Total</th><th class="r">${inr(tIn)}</th></tr>`;
-  document.getElementById('exp').innerHTML = '<tr><th>#</th><th>Paid to / For</th><th>Category</th><th>Date</th><th class="r">Amount</th></tr>' +
-    out.map((e,i) => `<tr><td>${i+1}</td><td>${esc(e.person)} ${esc(e.purpose)}</td><td>${esc(e.category)}</td><td>${esc(e.date)}</td><td class="r out">${inr(e.amount)}</td></tr>`).join('') +
-    `<tr><th colspan="4">Total</th><th class="r">${inr(tOut)}</th></tr>`;
+function parseCSV(t){
+  const rows=[]; let r=[], c="", q=false;
+  for(let i=0;i<t.length;i++){
+    const ch=t[i];
+    if(q){ if(ch=='"'){ if(t[i+1]=='"'){c+='"';i++} else q=false } else c+=ch }
+    else if(ch=='"') q=true;
+    else if(ch==','){ r.push(c); c="" }
+    else if(ch=='\n'||ch=='\r'){ if(ch=='\r'&&t[i+1]=='\n') i++; r.push(c); c=""; rows.push(r); r=[] }
+    else c+=ch;
+  }
+  if(c||r.length){ r.push(c); rows.push(r) }
+  const head=(rows.shift()||[]).map(x=>x.trim().toLowerCase());
+  return rows.filter(x=>x.some(v=>v.trim())).map(x=>Object.fromEntries(head.map((k,i)=>[k,(x[i]||"").trim()])));
+}
+let toastT;
+function toast(t){ const m=$("msg"); m.style.display="block"; m.textContent=t; clearTimeout(toastT); toastT=setTimeout(()=>m.style.display="none",4500); }
+async function load(key){
+  const url = CONFIG.sheets[key];
+  if(!url) return (DEMO[key] || []).map((r,i)=>({id:key[0]+i,...r}));
+  try{ const res = await fetch(url); if(!res.ok) throw 0; return parseCSV(await res.text()); }
+  catch(e){ toast("Could not load some live data. Please refresh in a minute."); return []; }
+}
+async function loadAll(){
+  if(CONFIG.api){
+    try{ const j = await (await fetch(CONFIG.api+"?action=read")).json(); KEYS.forEach(k => state.data[k] = j[k] || []); return; }
+    catch(e){ toast("Could not load live data. Please refresh in a minute."); KEYS.forEach(k => state.data[k] = []); return; }
+  }
+  for(const k of KEYS) state.data[k] = await load(k);
+}
+const api = async body => (await fetch(CONFIG.api, {method:"POST", headers:{"Content-Type":"text/plain;charset=utf-8"}, body:JSON.stringify(body)})).json();
+const rowYear = r => +(r.year || (r.date||"").match(/\d{4}/)?.[0]) || CONFIG.startYear;
+const forYear = key => (state.data[key]||[]).filter(r => rowYear(r) === state.year);
+const empty = t => `<div class="empty">${t}</div>`;
+let totals = {tin:0,tout:0,bal:0};
+
+function countUp(el, to, dur=1400){
+  const from = el._v || 0; el._v = to; const t0 = performance.now();
+  (function step(now){ const k=clamp((now-t0)/dur); el.textContent = inr(lerp(from,to,sm(k))); if(k<1) requestAnimationFrame(step); })(t0);
 }
 
-async function tryOpen(){
-  const err = document.getElementById('err'); err.textContent = '';
-  try {
-    const data = await unlock(document.getElementById('pw').value);
-    render(data);
-    document.getElementById('lock').style.display = 'none';
-    document.getElementById('app').style.display = 'block';
-  } catch(e) { err.textContent = 'Wrong password'; }
+function render(){
+  const y = state.year;
+  $("heroYear").textContent = y; $("yearSel").value = y;
+  document.querySelectorAll("#yearBtns button").forEach(b => b.classList.toggle("on", +b.dataset.y === y));
+  const D = forYear("donors"), E = forYear("expenses");
+  const tin = D.reduce((s,r)=>s+amt(r),0), tout = E.reduce((s,r)=>s+amt(r),0), bal = tin - tout;
+  totals = {tin,tout,bal};
+
+  $("miniStats").innerHTML = `<div><small>Collected</small><b>${inr(tin)}</b></div><div><small>Spent</small><b>${inr(tout)}</b></div><div><small>Balance</small><b>${bal<0?"-":""}${inr(Math.abs(bal))}</b></div>`;
+
+  const q = $("q").value.trim().toLowerCase();
+  const act = (t,r) => `<td class="adm"><button class="ic" data-act="edit" data-t="${t}" data-id="${esc(r.id)}" aria-label="Edit">✎</button><button class="ic" data-act="del" data-t="${t}" data-id="${esc(r.id)}" aria-label="Delete">✕</button></td>`;
+  const DL = D.map((r,i)=>[r,i+1]).reverse().filter(([r]) => !q || (r.name||"").toLowerCase().includes(q));
+  $("dList").innerHTML = DL.length ? `<table class="tb"><thead><tr><th>#</th><th>Donor</th><th class="m">Date</th><th class="amt">Amount</th><th class="adm"></th></tr></thead><tbody>${DL.map(([r,n])=>`<tr><td>${n}</td><td>${esc(r.name)}${r.note?`<small>${esc(r.note)}</small>`:""}</td><td class="m">${esc(r.date)}</td><td class="amt">${inr(amt(r))}</td>${act("donors",r)}</tr>`).join("")}</tbody></table>` : empty("No donors yet for "+y);
+  $("dCount").textContent = D.length + " donations"; $("dTot").textContent = inr(tin);
+
+  const cat = {}; E.forEach(r => { const k = r.category || "Other"; cat[k] = (cat[k]||0) + amt(r); });
+  const cats = Object.entries(cat).sort((a,b)=>b[1]-a[1]);
+  $("cats").innerHTML = cats.length ? cats.map(([k,v])=>`<div class="bar"><div class="r"><span>${esc(k)}</span><b>${inr(v)}</b></div><div class="t"><div class="f" style="width:${v/cats[0][1]*100}%"></div></div></div>`).join("") : empty("No expenses yet for "+y);
+  $("eList").innerHTML = E.length ? `<table class="tb out"><thead><tr><th>#</th><th>Paid for</th><th class="m">Date</th><th class="amt">Amount</th><th class="adm"></th></tr></thead><tbody>${E.map((r,i)=>[r,i+1]).reverse().map(([r,n])=>`<tr><td>${n}</td><td>${esc(r.name)}<small>${esc(r.category)}${r.note?" · "+esc(r.note):""}</small></td><td class="m">${esc(r.date)}</td><td class="amt">${inr(amt(r))}</td>${act("expenses",r)}</tr>`).join("")}</tbody></table>` : "";
+  $("eCount").textContent = E.length + " payments"; $("eTot").textContent = inr(tout);
+
+  $("balNum").style.color = bal<0 ? "var(--red)" : ""; 
+  countUp($("balNum"), Math.abs(bal));
+  $("balSub").textContent = `Collected ${inr(tin)} · Spent ${inr(tout)}` + (bal<0?" · overspent":"");
+
+  /* summary: donors - wages = remaining */
+  $("sumTb").innerHTML = `<tbody>
+    <tr><td>Collected from donors<small>${D.length} donations</small></td><td class="amt">${inr(tin)}</td></tr>
+    <tr><td>Wages &amp; expenses<small>${E.length} payments</small></td><td class="amt" style="color:var(--red)">− ${inr(tout)}</td></tr>
+    <tr class="final"><td>Remaining amount · ${y}</td><td class="amt gold" style="${bal<0?"color:var(--red);-webkit-text-fill-color:var(--red)":""}">${bal<0?"− ":""}${inr(Math.abs(bal))}</td></tr></tbody>`;
+
+  /* programme */
+  let PR = forYear("program").slice().sort((a,b)=>(+a.order||0)-(+b.order||0)), isDef = false;
+  if(!PR.length){ PR = defProgram(y).map((r,i)=>({id:"def"+i,year:y,...r})); isDef = true; }
+  state.pr = PR; state.prDef = isDef; if(state.prI >= PR.length || state.prYear !== y){ state.prI = 0; state.prYear = y; }
+  $("pgBtns").innerHTML = PR.map((r,i)=>`<button data-i="${i}" class="${i===state.prI?"on":""}">${esc(r.title)}</button>`).join("");
+  const pr = PR[state.prI];
+  $("pgCard").innerHTML = `<span class="when">${esc(pr.day)}</span><h3>${esc(pr.title)}</h3><p class="tel">${esc(pr.title_te)}</p>
+    <p class="tx">${esc(pr.text)}</p><p class="tx te">${esc(pr.text_te)}</p>
+    <div class="row"><button class="spk" data-act="play" data-lang="en">▶ Play announcement (English)</button><button class="spk" data-act="play" data-lang="te">▶ ప్రకటన వినండి (తెలుగు)</button>
+    ${isDef?"":`<button class="ic adm show" data-act="edit" data-t="program" data-id="${esc(pr.id)}" aria-label="Edit">✎</button><button class="ic adm show" data-act="del" data-t="program" data-id="${esc(pr.id)}" aria-label="Delete">✕</button>`}</div>`;
+  $("saveProg").style.display = isDef ? "" : "none"; $("addProg").style.display = isDef ? "none" : "";
+
+  const N = forYear("news").slice().reverse();
+  $("newsList").innerHTML = N.length ? N.map(r=>`<div class="glass tilt"><small>${esc(r.date)}</small><h3>${esc(r.title)}</h3><p>${esc(r.message)}</p><div class="row" style="display:flex;gap:8px;margin-top:12px"><button class="spk" data-act="say" data-i="${esc(r.id)}">🔊 Listen</button><span class="adm show"><button class="ic" data-act="edit" data-t="news" data-id="${esc(r.id)}" aria-label="Edit">✎</button><button class="ic" data-act="del" data-t="news" data-id="${esc(r.id)}" aria-label="Delete">✕</button></span></div></div>`).join("") : empty("No announcements for "+y);
+  const V = forYear("videos").map(r=>({t:r.title,id:((r.link||"").match(/(?:youtu\.be\/|v=|shorts\/|embed\/)([\w-]{11})/)||[])[1]})).filter(v=>v.id);
+  const P = forYear("photos");
+  $("strip").innerHTML = (V.map(v=>`<div class="tilt"><iframe loading="lazy" src="https://www.youtube-nocookie.com/embed/${v.id}" allowfullscreen></iframe><figcaption>${esc(v.t)}</figcaption></div>`).join("") +
+    P.map(r=>{ const src=/^(https?:|data:image\/)/.test(r.file)?r.file:"images/"+r.file; return `<figure class="tilt"><img loading="lazy" src="${esc(src)}" alt="${esc(r.caption)}" onerror="this.parentNode.classList.add('ph');this.remove()"><figcaption>${esc(r.caption)}</figcaption><button class="ic adm show" data-act="del" data-t="photos" data-id="${esc(r.id)}" aria-label="Delete photo">✕</button></figure>`; }).join("")) || empty("No photos or videos for "+y+" yet. Use “Upload photos” above.");
+  $("photoYears").innerHTML = CONFIG.years.map(yy=>{ const n=(state.data.photos||[]).filter(r=>rowYear(r)===yy).length; return `<button data-y="${yy}" class="${yy===y?"on":""}">${yy} · ${n} 📷</button>`; }).join("");
+
+  bindTilt(); if(GL) GL.rebuild(D, E);
+  requestAnimationFrame(measure);
 }
-document.getElementById('go').onclick = tryOpen;
-document.getElementById('pw').addEventListener('keydown', e => { if (e.key === 'Enter') tryOpen(); });
+function setYear(y){ state.year=+y; render(); }
+
+/* ================= INTERACTIONS ================= */
+const fine = matchMedia("(hover:hover) and (pointer:fine)").matches;
+let mx=0,my=0,smx=0,smy=0;
+addEventListener("pointermove", e => { mx = e.clientX/innerWidth*2-1; my = e.clientY/innerHeight*2-1;
+  if(fine){ $("glow").style.transform=`translate(${e.clientX}px,${e.clientY}px)`; }
+  document.querySelectorAll(".mag").forEach(b=>{ const r=b.getBoundingClientRect(), dx=e.clientX-(r.left+r.width/2), dy=e.clientY-(r.top+r.height/2);
+    b.style.transform = Math.hypot(dx,dy)<90 ? `translate(${dx*.25}px,${dy*.25}px)` : ""; });
+});
+function bindTilt(){
+  if(!fine) return;
+  document.querySelectorAll(".tilt").forEach(el=>{
+    el.onpointermove = e => { const r=el.getBoundingClientRect(), x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+      el.style.transform=`perspective(700px) rotateY(${x*14}deg) rotateX(${-y*14}deg) translateZ(8px)`; };
+    el.onpointerleave = () => el.style.transform="";
+  });
+}
+const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add("in"); }), {threshold:.15});
+document.querySelectorAll(".rv,.mask").forEach(el => io.observe(el));
+
+/* ================= 3D SCENE ================= */
+let GL = null, secs = [];
+function measure(){ secs = [...document.querySelectorAll("[data-pose]")].map(el => ({key:el.dataset.pose, top:el.offsetTop, h:el.offsetHeight})); }
+
+function initGL(){
+  if(!window.THREE) { document.body.classList.add("nogl"); return null; }
+  let renderer;
+  try{ renderer = new THREE.WebGLRenderer({canvas:$("gl"),antialias:true,alpha:true}); }
+  catch(e){ document.body.classList.add("nogl"); return null; }
+  const small = innerWidth < 820;
+  renderer.setPixelRatio(Math.min(devicePixelRatio, small ? 1.4 : 1.8));
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.15;
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(40, 1, .1, 100);
+
+  /* reflections for the gold: a small studio painted on a canvas */
+  const ec = document.createElement("canvas"); ec.width=512; ec.height=256; const eg = ec.getContext("2d");
+  const gr = eg.createLinearGradient(0,0,0,256); gr.addColorStop(0,"#1a0509"); gr.addColorStop(.5,"#6b2a14"); gr.addColorStop(1,"#120408");
+  eg.fillStyle=gr; eg.fillRect(0,0,512,256);
+  eg.fillStyle="#fff1cf"; eg.fillRect(60,70,90,110); eg.fillRect(330,60,110,90); eg.fillStyle="#ffb260"; eg.fillRect(200,90,50,70); eg.fillRect(470,100,30,80);
+  const et = new THREE.CanvasTexture(ec); et.mapping = THREE.EquirectangularReflectionMapping;
+  const pm = new THREE.PMREMGenerator(renderer); const env = pm.fromEquirectangular(et).texture; scene.environment = env;
+
+  scene.add(new THREE.HemisphereLight(0xffe2b0, 0x2a0a14, .55));
+  const key = new THREE.DirectionalLight(0xfff0d0, 2.2); key.position.set(3,5,4); scene.add(key);
+  const rim = new THREE.DirectionalLight(0xf0792b, 1.6); rim.position.set(-4,2,-3); scene.add(rim);
+
+  const root = new THREE.Group(); scene.add(root);
+  const pot = new THREE.Group(); pot.position.y = -1.2; root.add(pot);
+  const coinGroup = new THREE.Group(); coinGroup.position.y = -1.2; root.add(coinGroup);
+  const mouthLight = new THREE.PointLight(0xffb347, 1.4, 5); mouthLight.position.set(0,1.3,0); root.add(mouthLight);
+
+  /* the kalasam: lathe profile */
+  const prof = [[0,0],[.5,0],[.58,.04],[.5,.1],[.42,.18],[.62,.4],[.88,.75],[1,1.1],[.98,1.4],[.8,1.7],[.55,1.92],[.46,2.1],[.5,2.22],[.62,2.32],[.68,2.4],[.6,2.45],[.5,2.4],[.45,2.28],[.4,2.0]].map(p=>new THREE.Vector2(p[0],p[1]));
+  const curve = new THREE.SplineCurve(prof).getPoints(small?50:90);
+  const goldMat = new THREE.MeshStandardMaterial({color:0xe2a93c,metalness:1,roughness:.26,envMapIntensity:1.3,side:THREE.DoubleSide});
+  pot.add(new THREE.Mesh(new THREE.LatheGeometry(curve, small?40:72), goldMat));
+  const bandMat = new THREE.MeshStandardMaterial({color:0x9a4a1c,metalness:.9,roughness:.35});
+  [[.82,.75,1.0],[1.0,1.1,1.03],[.8,1.7,.82],[.62,2.32,.7]].forEach(b=>{ const t = new THREE.Mesh(new THREE.TorusGeometry(b[2],.025,12,64),bandMat); t.rotation.x=Math.PI/2; t.position.y=b[1]; pot.add(t); });
+  const rimT = new THREE.Mesh(new THREE.TorusGeometry(.64,.05,16,64), goldMat); rimT.rotation.x=Math.PI/2; rimT.position.y=2.4; pot.add(rimT);
+
+  /* soft glow under the pot for grounding */
+  const sc = document.createElement("canvas"); sc.width=sc.height=128; const sg = sc.getContext("2d");
+  const rg = sg.createRadialGradient(64,64,0,64,64,64); rg.addColorStop(0,"rgba(240,121,43,.45)"); rg.addColorStop(1,"rgba(240,121,43,0)"); sg.fillStyle=rg; sg.fillRect(0,0,128,128);
+  const shadow = new THREE.Mesh(new THREE.PlaneGeometry(3.4,3.4), new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(sc),transparent:true,depthWrite:false}));
+  shadow.rotation.x=-Math.PI/2; shadow.position.y=-1.18; root.add(shadow);
+
+  /* balance ring */
+  const ringG = new THREE.Group(); ringG.position.y = 0; ringG.rotation.x = Math.PI/2.15; root.add(ringG);
+  let ringParts = [];
+
+  /* dust */
+  const pn = small ? 70 : 160, pa = new Float32Array(pn*3);
+  for(let i=0;i<pn;i++){ pa[i*3]=(Math.random()-.5)*16; pa[i*3+1]=(Math.random()-.5)*12; pa[i*3+2]=-7+Math.random()*9; }
+  const pg = new THREE.BufferGeometry(); pg.setAttribute("position", new THREE.BufferAttribute(pa,3));
+  const dust = new THREE.Points(pg, new THREE.PointsMaterial({color:0xffd27a,size:.035,transparent:true,opacity:.65,depthWrite:false})); scene.add(dust);
+
+  /* coins carry the real names and amounts */
+  const edgeGold = new THREE.MeshStandardMaterial({color:0xcf9a2f,metalness:1,roughness:.3});
+  const edgeCop = new THREE.MeshStandardMaterial({color:0x9a4a1c,metalness:1,roughness:.35});
+  const coinGeo = new THREE.CylinderGeometry(.22,.22,.035,small?32:48);
+  let coins = [], wcoins = [];
+  const textures = [];
+  function coinTex(l1,l2,copper){
+    const c = document.createElement("canvas"); c.width=c.height=256; const g = c.getContext("2d");
+    const grd = g.createRadialGradient(100,90,10,128,128,150);
+    (copper?["#ffd2b0","#c8743a","#6e3414"]:["#fff1b8","#e8b94a","#a9741c"]).forEach((col,i)=>grd.addColorStop(i/2,col));
+    g.fillStyle=grd; g.fillRect(0,0,256,256);
+    g.strokeStyle="rgba(80,40,5,.55)"; g.lineWidth=7; g.beginPath(); g.arc(128,128,118,0,7); g.stroke(); g.lineWidth=2.5; g.beginPath(); g.arc(128,128,103,0,7); g.stroke();
+    g.fillStyle="#3d2005"; g.textAlign="center";
+    g.font='600 25px Poppins,"Noto Sans Telugu",sans-serif';
+    const words = String(l1).split(" "), lines=[""]; words.forEach(w=>{ const t=(lines[lines.length-1]+" "+w).trim(); if(g.measureText(t).width>170 && lines[lines.length-1]) lines.push(w); else lines[lines.length-1]=t; });
+    lines.slice(0,3).forEach((t,i,a)=>g.fillText(t.length>18?t.slice(0,17)+"…":t,128,(a.length>2?78:a.length>1?88:104)+i*28));
+    g.font='700 44px Poppins,sans-serif'; g.fillText(l2,128,184);
+    const t = new THREE.CanvasTexture(c); t.encoding=THREE.sRGBEncoding; t.anisotropy=4; t.center.set(.5,.5); t.rotation=Math.PI/2; textures.push(t); return t;
+  }
+  function makeCoin(l1,l2,copper){
+    const face = new THREE.MeshStandardMaterial({map:coinTex(l1,l2,copper),metalness:.85,roughness:.35,envMapIntensity:.9});
+    const m = new THREE.Mesh(coinGeo,[copper?edgeCop:edgeGold,face,face]); coinGroup.add(m); return m;
+  }
+  const short = n => n>=100000?(n/100000).toFixed(1).replace(".0","")+"L":n>=1000?(n/1000).toFixed(n%1000?1:0).replace(".0","")+"k":String(n);
+
+  function rebuild(D,E){
+    [...coins,...wcoins].forEach(c=>{ coinGroup.remove(c); c.material[1].dispose(); });
+    textures.splice(0).forEach(t=>t.dispose());
+    const lim = small ? 12 : 24;
+    coins = D.slice(0,lim).map((r,i)=>{ const m = makeCoin(r.name, "₹"+short(amt(r)), false); m.userData = {k:i, tilt:new THREE.Quaternion().setFromEuler(new THREE.Euler((Math.random()-.5)*.35,Math.random()*6.28,(Math.random()-.5)*.35)), hx:Math.cos(i*2.4)*(.06+.3*Math.sqrt(i/Math.max(D.length,1))), hz:Math.sin(i*2.4)*(.06+.3*Math.sqrt(i/Math.max(D.length,1))), hy:2.3+i*.03}; return m; });
+    wcoins = E.slice(0,8).map((r,i)=>{ const m = makeCoin(r.name.replace(/\s*\(.*?\)/,""), "₹"+short(amt(r)), true); m.userData = {k:i}; return m; });
+    ringParts.forEach(p=>{ ringG.remove(p); p.geometry.dispose(); }); ringParts=[];
+    const frac = totals.tin>0 ? clamp(totals.bal/totals.tin) : 0;
+    const spent = new THREE.Mesh(new THREE.TorusGeometry(1.9,.045,16,120), new THREE.MeshStandardMaterial({color:0xc8743a,metalness:.9,roughness:.4}));
+    ringG.add(spent); ringParts.push(spent);
+    if(frac>0){ const g = new THREE.Mesh(new THREE.TorusGeometry(1.9,.075,16,120,Math.PI*2*frac), goldMat); g.rotation.z = Math.PI/2 - Math.PI*2*frac; ringG.add(g); ringParts.push(g); }
+  }
+
+  /* poses: where the kalasam sits for each section */
+  let P = {};
+  function buildPoses(){
+    const asp = innerWidth/innerHeight, mob = innerWidth<820, xs = clamp(asp/1.78,.55,1);
+    if(mob){ const y=1.5, s=.6; P = {hero:{x:0,y,z:0,ry:.6,s},intro:{x:0,y,z:0,ry:2,s},donors:{x:0,y,z:0,ry:3,s},wages:{x:0,y,z:0,ry:4.4,s},balance:{x:0,y,z:.3,ry:6.28,s:.7},news:{x:0,y:5,z:-6,ry:7.2,s:.6},media:{x:0,y:5,z:-6,ry:8,s:.6},years:{x:0,y:1.5,z:-1,ry:9.4,s:.55}}; camera.position.z = 8; }
+    else { P = {hero:{x:2.35*xs,y:-.1,z:0,ry:.6,s:1.2},intro:{x:-2.3*xs,y:0,z:-.5,ry:2,s:1},donors:{x:-2.6*xs,y:-.1,z:.2,ry:3,s:1.1},wages:{x:2.6*xs,y:-.1,z:.2,ry:4.4,s:1.05},balance:{x:0,y:.75,z:.5,ry:6.28,s:.95},news:{x:0,y:-5,z:-3,ry:7.2,s:.9},media:{x:3.6*xs,y:-5,z:-3.5,ry:8,s:.6},years:{x:0,y:1.55,z:-1.2,ry:9.4,s:.7}}; camera.position.z = 7; }
+  }
+  function resize(){ renderer.setSize(innerWidth, innerHeight, false); camera.aspect = innerWidth/innerHeight; camera.updateProjectionMatrix(); buildPoses(); measure(); }
+  addEventListener("resize", resize); resize();
+
+  const cur = {x:0,y:0,z:0,ry:0,s:1}; let dpS=0, wpS=0, t0=performance.now(), last=t0, frame=0;
+  const qFace = new THREE.Quaternion().setFromEuler(new THREE.Euler(Math.PI/2,0,0)), qW = new THREE.Quaternion(), q = new THREE.Quaternion(), qE = new THREE.Euler();
+  const calm = matchMedia("(prefers-reduced-motion:reduce)").matches;
+  const find = k => secs.find(s=>s.key===k);
+
+  function tick(now){
+    requestAnimationFrame(tick); if(!secs.length) return;
+    if(++frame%90===0) measure();
+    const dt = Math.min(.25,(now-last)/1000); last = now; const kd = 1-Math.exp(-dt*5), kc = 1-Math.exp(-dt*7), km = 1-Math.exp(-dt*3.5);
+    const t = calm ? 0 : (now-t0)/1000, mid = scrollY + innerHeight*.5;
+    let i=0; secs.forEach((s,k)=>{ if(mid>=s.top) i=k; });
+    const s = secs[i], u = clamp((mid-s.top)/s.h), A = P[s.key]||P.hero, B = P[secs[Math.min(i+1,secs.length-1)].key]||A, span = innerHeight*.6, tt = sm(clamp((mid-(s.top+s.h-span))/span));
+    const tg = {}; for(const k in cur) tg[k] = lerp(A[k],B[k],tt);
+    for(const k in cur) cur[k] += (tg[k]-cur[k])*kd;
+    smx += (mx-smx)*km; smy += (my-smy)*km;
+    root.position.set(cur.x, cur.y, cur.z); root.scale.setScalar(cur.s);
+    root.rotation.x = smy*.1; root.rotation.z = -smx*.05;
+    pot.rotation.y = cur.ry + t*.3;
+    camera.position.x = smx*.35; camera.position.y = -smy*.2; camera.lookAt(0,0,0);
+
+    const dn = find("donors"), wg = find("wages"), bl = find("balance");
+    const dp = dn ? clamp((mid-dn.top)/(dn.h*.85)) : 0, wp = wg ? clamp((mid-wg.top)/(wg.h*.85)) : 0;
+    dpS += (dp-dpS)*kc; wpS += (wp-wpS)*kc;
+    const R = small ? .8 : 1, N = Math.max(coins.length,1), bias = small ? 0 : clamp(cur.x/2.3,-1,1)*.55;
+
+    coins.forEach(c=>{
+      const k = c.userData.k, f = sm(clamp((dpS - k/N*.8)/.25));
+      const a = k*(6.2832/N) + t*.22, r = (1.9+.3*((k*7)%3))*R;
+      const ox = Math.cos(a)*r*.8 + bias, oy = 1.5+.9*Math.sin(k*1.9+t*.6), oz = Math.sin(a)*r*.6;
+      c.position.set(lerp(ox,c.userData.hx,f), lerp(oy,c.userData.hy,f) + Math.sin(Math.PI*f)*1.4, lerp(oz,c.userData.hz,f));
+      c.scale.setScalar(lerp(1.45,.95,f));
+      qE.set(.15*Math.sin(t+k), .4*Math.sin(t*.7+k), 0); qW.setFromEuler(qE); q.copy(qW).multiply(qFace).slerp(c.userData.tilt, f); c.quaternion.copy(q);
+    });
+    const W = Math.max(wcoins.length,1);
+    wcoins.forEach(c=>{
+      const k = c.userData.k, g = sm(clamp((wpS - k/W*.7)/.3));
+      const a = Math.PI + (k-(W-1)/2)*.55 + t*.08, r = 2.4*R;
+      const tx = Math.cos(a)*r, ty = 1.2+.5*Math.sin(k*1.3+t*.5), tz = Math.sin(a)*r*.5;
+      c.position.set(lerp(0,tx,g), lerp(2.4,ty,g)+Math.sin(Math.PI*g)*1.2, lerp(0,tz,g));
+      c.scale.setScalar(lerp(.01,1.35,g));
+      qE.set(.12*Math.sin(t+k), .35*Math.sin(t*.6+k), 0); qW.setFromEuler(qE); c.quaternion.copy(qW.multiply(qFace));
+    });
+    const bw = bl ? sm(clamp(1 - Math.abs(mid-(bl.top+bl.h/2))/(bl.h*.8))) : 0;
+    ringG.scale.setScalar(Math.max(.001,bw)); ringG.rotation.z = t*.1;
+    mouthLight.intensity = 1 + .35*Math.sin(t*3) + dpS*.8;
+    dust.position.y = scrollY*.0011; dust.rotation.y = t*.02;
+    renderer.render(scene, camera);
+  }
+  requestAnimationFrame(tick);
+  return { rebuild };
+}
+
+/* ================= ADMIN: login, add, edit, delete ================= */
+let admin = null;
+try{ admin = JSON.parse(sessionStorage.getItem("dasara_admin")||"null"); }catch(e){}
+const demoMode = () => !CONFIG.api && !Object.values(CONFIG.sheets).some(Boolean);
+function setAdmin(a){
+  admin = a; try{ a ? sessionStorage.setItem("dasara_admin", JSON.stringify(a)) : sessionStorage.removeItem("dasara_admin"); }catch(e){}
+  document.body.classList.toggle("admin", !!a);
+  $("admBtn").innerHTML = a ? `<b>🔓</b><span> ${esc(a.name.split(" ").pop())} · Logout</span>` : `<b>🔑</b><span> Admin</span>`;
+}
+const modal = html => { $("mbox").innerHTML = html; $("modal").classList.add("on"); };
+const closeModal = () => $("modal").classList.remove("on");
+$("modal").addEventListener("pointerdown", e => { if(e.target.id==="modal") closeModal(); });
+addEventListener("keydown", e => { if(e.key==="Escape") closeModal(); });
+
+function loginBox(then){
+  if(!CONFIG.api && !demoMode()){ toast("Editing is not switched on yet: add the Apps Script link (CONFIG.api) in index.html."); return; }
+  modal(`<h3>Admin login</h3>
+    <label>Your name</label><select id="lgName">${CONFIG.admins.map(n=>`<option>${esc(n)}</option>`).join("")}</select>
+    <label>PIN</label><input id="lgPin" type="password" inputmode="numeric" autocomplete="off" placeholder="••••">
+    ${demoMode()?`<p class="hint">Demo mode: PIN is 1234. Changes are not saved after you close the page.</p>`:`<p class="hint">Only the 4 committee admins can add or change data. Everyone else can view.</p>`}
+    <p class="hint" id="lgErr" style="color:var(--red)"></p>
+    <div class="acts"><button class="btn ghost sm" id="lgNo">Cancel</button><button class="btn sm" id="lgOk">Unlock</button></div>`);
+  $("lgNo").onclick = closeModal;
+  const go = async () => {
+    const name = $("lgName").value, pin = $("lgPin").value.trim(); $("lgOk").disabled = true; $("lgErr").textContent = "";
+    try{
+      let ok = false;
+      if(CONFIG.api){ const r = await api({action:"login", name, pin}); ok = !!r.ok; } else ok = pin === "1234";
+      if(!ok){ $("lgErr").textContent = "Wrong PIN. Please try again."; $("lgOk").disabled = false; return; }
+      setAdmin({name, pin}); closeModal(); toast("Admin unlocked: "+name); then && then();
+    }catch(e){ $("lgErr").textContent = "Could not reach the server. Check internet and try again."; $("lgOk").disabled = false; }
+  };
+  $("lgOk").onclick = go; $("lgPin").onkeydown = e => { if(e.key==="Enter") go(); };
+  setTimeout(()=>$("lgPin").focus(),50);
+}
+const needAdmin = fn => admin ? fn() : loginBox(fn);
+$("admBtn").onclick = () => { if(admin){ if(confirm("Log out of admin?")) setAdmin(null); } else loginBox(); };
+
+const today = () => new Date().toISOString().slice(0,10);
+const EXP_CATS = ["Wages","Veshalu","Decoration","Annadanam (food)","Sound & light","Pooja items","Other"];
+const FORMS = {
+  donors:{label:"donor", fields:[["name","Donor name","text",1],["amount","Amount (₹)","number",1],["date","Date","date"],["note","Note (optional)","text"]]},
+  expenses:{label:"wages / expense", fields:[["name","Paid to / item","text",1],["category","Category","select"],["amount","Amount (₹)","number",1],["date","Date","date"],["note","Note (optional)","text"]]},
+  news:{label:"announcement", fields:[["title","Title","text",1],["message","Message","area",1],["date","Date","date"]]},
+  videos:{label:"video", fields:[["title","Title","text",1],["link","YouTube link","text",1]]},
+  program:{label:"programme session", fields:[["order","Order (1,2,3…)","number",1],["day","Day / date","text",1],["title","Title (English)","text",1],["title_te","Title (Telugu)","text"],["text","Announcement (English)","area",1],["text_te","Announcement (Telugu)","area"],["audio","Recorded audio file or link (optional)","text"]]}
+};
+function formBox(tab, row){
+  const F = FORMS[tab], editing = !!(row && row.id), r = row || {};
+  const yr = rowYear(r.year ? r : {year:state.year});
+  const fld = ([k,l,t,req]) => {
+    const v = r[k] ?? (k==="date"?today():k==="order"?(state.data.program||[]).filter(x=>rowYear(x)===state.year).length+1:"");
+    if(t==="area") return `<label>${l}</label><textarea name="${k}" ${req?"required":""}>${esc(v)}</textarea>`;
+    if(t==="select") return `<label>${l}</label><select name="${k}">${EXP_CATS.map(c=>`<option ${c===v?"selected":""}>${esc(c)}</option>`).join("")}${v&&!EXP_CATS.includes(v)?`<option selected>${esc(v)}</option>`:""}</select>`;
+    return `<label>${l}</label><input name="${k}" type="${t}" ${t==="number"?'min="0" step="any" inputmode="decimal"':""} value="${esc(v)}" ${req?"required":""}>`;
+  };
+  modal(`<form id="fm"><h3>${editing?"Edit":"Add"} ${F.label}</h3>
+    <label>Festival year</label><select name="year">${CONFIG.years.map(y=>`<option ${y===yr?"selected":""}>${y}</option>`).join("")}</select>
+    ${F.fields.map(fld).join("")}<p class="hint" id="fmErr" style="color:var(--red)"></p>
+    <div class="acts"><button type="button" class="btn ghost sm" id="fmNo">Cancel</button><button class="btn sm" id="fmOk">${editing?"Save changes":"Save"}</button></div></form>`);
+  $("fmNo").onclick = closeModal;
+  $("fm").onsubmit = async e => {
+    e.preventDefault(); const f = new FormData($("fm")), row2 = Object.fromEntries(f.entries()); row2.year = +row2.year;
+    if("amount" in row2 && !(+row2.amount > 0)){ $("fmErr").textContent = "Amount must be more than 0."; return; }
+    if(tab==="videos" && !/(youtu\.be\/|v=|shorts\/|embed\/)[\w-]{11}/.test(row2.link)){ $("fmErr").textContent = "Please paste a valid YouTube link."; return; }
+    $("fmOk").disabled = true; $("fmOk").textContent = "Saving…";
+    try{ await saveRow(tab, row2, editing ? r.id : null); closeModal(); render(); toast(editing?"Changes saved ✔":"Added ✔"); }
+    catch(err){ $("fmErr").textContent = err.message || "Could not save."; $("fmOk").disabled = false; $("fmOk").textContent = "Save"; }
+  };
+}
+async function saveRow(tab, row, id){
+  if(CONFIG.api){
+    const r = await api({action:id?"update":"add", tab, id, row, name:admin.name, pin:admin.pin});
+    if(!r.ok){ if(r.error==="auth") setAdmin(null); throw new Error(r.error==="auth"?"Session expired. Please log in again.":(r.error||"Server error")); }
+    row.id = r.id || id;
+  } else row.id = id || ("l"+Date.now()+Math.random().toString(36).slice(2,5));
+  const arr = state.data[tab] = state.data[tab] || [];
+  if(id){ const i = arr.findIndex(x=>x.id===id); if(i>=0) arr[i] = {...arr[i],...row}; } else arr.push(row);
+}
+async function delRow(tab, id){
+  if(!confirm("Delete this entry? This cannot be undone.")) return;
+  try{
+    if(CONFIG.api){ const r = await api({action:"delete", tab, id, name:admin.name, pin:admin.pin}); if(!r.ok) throw new Error(r.error||"Server error"); }
+    state.data[tab] = state.data[tab].filter(x=>x.id!==id); render(); toast("Deleted");
+  }catch(e){ toast("Could not delete: "+(e.message||"error")); }
+}
+
+/* photos: resized in the browser, then stored in Google Drive through the Apps Script */
+function shrink(file, max=1400){
+  return new Promise((res,rej)=>{ const u = URL.createObjectURL(file), im = new Image();
+    im.onload = () => { const k = Math.min(1, max/Math.max(im.width,im.height)), c = document.createElement("canvas"); c.width = Math.round(im.width*k); c.height = Math.round(im.height*k);
+      c.getContext("2d").drawImage(im,0,0,c.width,c.height); URL.revokeObjectURL(u); res(c.toDataURL("image/jpeg",.82)); };
+    im.onerror = () => { URL.revokeObjectURL(u); rej(new Error("Not a picture: "+file.name)); }; im.src = u; });
+}
+function photoBox(){
+  modal(`<form id="fp"><h3>Upload photos</h3>
+    <label>Festival year</label><select name="year">${CONFIG.years.map(y=>`<option ${y===state.year?"selected":""}>${y}</option>`).join("")}</select>
+    <label>Photos (you can choose many)</label><input type="file" name="f" accept="image/*" multiple required>
+    <label>Caption (optional)</label><input name="cap" type="text" placeholder="e.g. Kalasa procession">
+    <p class="hint">Pictures are reduced automatically so they load fast on mobile.</p><p class="hint" id="fpErr" style="color:var(--red)"></p>
+    <div class="acts"><button type="button" class="btn ghost sm" id="fpNo">Cancel</button><button class="btn sm" id="fpOk">Upload</button></div></form>`);
+  $("fpNo").onclick = closeModal;
+  $("fp").onsubmit = async e => {
+    e.preventDefault(); const f = new FormData($("fp")), yr = +f.get("year"), cap = String(f.get("cap")||"").trim(), files = [...$("fp").f.files];
+    $("fpOk").disabled = true; let n = 0;
+    try{
+      for(const file of files){
+        $("fpOk").textContent = `Uploading ${n+1}/${files.length}…`;
+        const data = await shrink(file), row = {year:yr, caption:cap || file.name.replace(/\.[^.]+$/,"")};
+        if(CONFIG.api){
+          const r = await api({action:"photo", name:admin.name, pin:admin.pin, row, data});
+          if(!r.ok) throw new Error(r.error||"Server error"); row.id = r.id; row.file = r.url;
+        } else { row.id = "l"+Date.now()+n; row.file = data; }
+        (state.data.photos = state.data.photos||[]).push(row); n++;
+      }
+      state.year = yr; closeModal(); render(); toast(n+" photo"+(n>1?"s":"")+" added to "+yr+" ✔");
+    }catch(err){ $("fpErr").textContent = err.message || "Upload failed."; $("fpOk").disabled = false; $("fpOk").textContent = "Upload"; if(n){ render(); } }
+  };
+}
+
+/* audio announcements: recorded file if given, otherwise the phone/computer reads the text aloud */
+let curAudio = null, curBtn = null;
+function stopAudio(){ try{ speechSynthesis.cancel(); }catch(e){} if(curAudio){ curAudio.pause(); curAudio = null; } if(curBtn){ curBtn.classList.remove("on"); curBtn.textContent = curBtn._t; curBtn = null; } }
+function playAudio(btn, text, lang, file){
+  const same = curBtn === btn; stopAudio(); if(same) return;
+  btn._t = btn.textContent; btn.classList.add("on"); btn.textContent = "⏹ Stop"; curBtn = btn;
+  const done = () => { if(curBtn === btn) stopAudio(); };
+  const speakText = () => {
+    if(!("speechSynthesis" in window)){ toast("This browser cannot read aloud. Try Chrome."); done(); return; }
+    const u = new SpeechSynthesisUtterance(text), tag = lang==="te" ? "te-IN" : "en-IN", v = speechSynthesis.getVoices().find(x=>x.lang.replace("_","-").toLowerCase().startsWith(tag.slice(0,2)));
+    u.lang = v ? v.lang : tag; if(v) u.voice = v; u.rate = .92; u.onend = done; u.onerror = done;
+    if(lang==="te" && !v) toast("No Telugu voice found on this device. Ask the admin to add a recorded audio file.");
+    speechSynthesis.speak(u);
+  };
+  if(file){ const src = /^(https?:|\/)/.test(file) ? file : "audio/"+file; const a = new Audio(src); curAudio = a; a.onended = done; a.onerror = () => { curAudio = null; speakText(); }; a.play().catch(()=>{ curAudio = null; speakText(); }); }
+  else speakText();
+}
+
+/* one click handler for every button on the page */
+document.addEventListener("click", e => {
+  const b = e.target.closest("button"); if(!b) return;
+  if(b.id==="addDonor") return needAdmin(()=>formBox("donors"));
+  if(b.id==="addWage") return needAdmin(()=>formBox("expenses"));
+  if(b.id==="addNews") return needAdmin(()=>formBox("news"));
+  if(b.id==="addVideo") return needAdmin(()=>formBox("videos"));
+  if(b.id==="addProg") return needAdmin(()=>formBox("program"));
+  if(b.id==="addPhoto") return needAdmin(photoBox);
+  if(b.id==="saveProg") return needAdmin(async()=>{ try{ b.disabled=true; for(const r of defProgram(state.year)) await saveRow("program",{year:state.year,...r},null); render(); toast("Programme saved. You can now edit each session."); }catch(err){ toast(err.message||"Could not save"); } b.disabled=false; });
+  if(b.parentNode.id==="pgBtns"){ stopAudio(); state.prI = +b.dataset.i; return render(); }
+  if(b.parentNode.id==="photoYears"){ return setYear(b.dataset.y); }
+  const a = b.dataset.act; if(!a) return;
+  if(a==="play"){ const r = state.pr[state.prI], te = b.dataset.lang==="te"; return playAudio(b, te ? (r.text_te||r.text) : r.text, b.dataset.lang, r.audio); }
+  if(a==="say"){ const r = (state.data.news||[]).find(x=>x.id===b.dataset.i); if(r) playAudio(b, r.title+". "+r.message, "en"); return; }
+  if(a==="edit") return needAdmin(()=>{ const r = (state.data[b.dataset.t]||[]).find(x=>x.id===b.dataset.id); if(r) formBox(b.dataset.t, r); });
+  if(a==="del") return needAdmin(()=>delRow(b.dataset.t, b.dataset.id));
+});
+if("speechSynthesis" in window) speechSynthesis.getVoices();
+
+/* ================= START ================= */
+(async function init(){
+  $("yearSel").innerHTML = CONFIG.years.map(y=>`<option value="${y}">${y}</option>`).join("");
+  $("yearSel").onchange = e => { stopAudio(); setYear(e.target.value); };
+  $("yearBtns").innerHTML = CONFIG.years.map(y=>`<button data-y="${y}">${y}</button>`).join("");
+  $("yearBtns").onclick = e => { if(e.target.dataset.y){ stopAudio(); setYear(e.target.dataset.y); scrollTo({top:0,behavior:"smooth"}); } };
+  $("yrRange").textContent = CONFIG.years[0] + " – " + CONFIG.years[CONFIG.years.length-1];
+  $("q").oninput = render;
+  setAdmin(admin);
+  if(CONFIG.leaderSheetLink) $("leaderLink").innerHTML = `<a class="btn ghost" href="${esc(CONFIG.leaderSheetLink)}" target="_blank" rel="noopener">🔑 Leaders: open the sheet</a>`;
+  await loadAll();
+  try{ await Promise.race([document.fonts.load('600 24px Poppins'), new Promise(r=>setTimeout(r,1500))]); }catch(e){}
+  GL = initGL();
+  render();
+})();
 </script>
 </body>
 </html>
