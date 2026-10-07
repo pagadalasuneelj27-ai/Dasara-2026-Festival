@@ -248,7 +248,7 @@ body.admin .adm.show{display:inline-flex}
   <section class="stage center" id="summary" data-pose="summary" style="min-height:auto;padding-top:90px;padding-bottom:90px">
     <div style="width:min(760px,100%)">
       <p class="kicker">Final account</p>
-      <h2><span class="mask"><span>Donors − Wages = </span></span><span class="mask gold"><span>Remaining</span></span></h2>
+      <h2><span class="mask"><span>Donors − Wages =&nbsp;</span></span><span class="mask gold"><span>Remaining</span></span></h2>
       <div class="glass"><table class="tb sum" id="sumTb"></table></div>
     </div>
   </section>
@@ -387,7 +387,10 @@ async function load(key){
   try{ const res = await fetch(url); if(!res.ok) throw 0; return parseCSV(await res.text()); }
   catch(e){ toast("Could not load some live data. Please refresh in a minute."); return []; }
 }
+const DKEY = "dasara_demo_v2";
+function persistDemo(){ if(CONFIG.api || !demoMode()) return; try{ localStorage.setItem(DKEY, JSON.stringify(state.data)); }catch(e){ toast("Device storage is full: remove some photos."); } }
 async function loadAll(){
+  if(!CONFIG.api && demoMode()){ try{ const j = JSON.parse(localStorage.getItem(DKEY)||"null"); if(j){ KEYS.forEach(k => state.data[k] = j[k] || []); return; } }catch(e){} }
   if(CONFIG.api){
     try{ const j = await (await fetch(CONFIG.api+"?action=read")).json(); KEYS.forEach(k => state.data[k] = j[k] || []); return; }
     catch(e){ toast("Could not load live data. Please refresh in a minute."); KEYS.forEach(k => state.data[k] = []); return; }
@@ -581,8 +584,8 @@ function initGL(){
   let P = {};
   function buildPoses(){
     const asp = innerWidth/innerHeight, mob = innerWidth<820, xs = clamp(asp/1.78,.55,1);
-    if(mob){ const y=1.5, s=.6; P = {hero:{x:0,y,z:0,ry:.6,s},intro:{x:0,y,z:0,ry:2,s},donors:{x:0,y,z:0,ry:3,s},wages:{x:0,y,z:0,ry:4.4,s},balance:{x:0,y,z:.3,ry:6.28,s:.7},news:{x:0,y:5,z:-6,ry:7.2,s:.6},media:{x:0,y:5,z:-6,ry:8,s:.6},years:{x:0,y:1.5,z:-1,ry:9.4,s:.55}}; camera.position.z = 8; }
-    else { P = {hero:{x:2.35*xs,y:-.1,z:0,ry:.6,s:1.2},intro:{x:-2.3*xs,y:0,z:-.5,ry:2,s:1},donors:{x:-2.6*xs,y:-.1,z:.2,ry:3,s:1.1},wages:{x:2.6*xs,y:-.1,z:.2,ry:4.4,s:1.05},balance:{x:0,y:.75,z:.5,ry:6.28,s:.95},news:{x:0,y:-5,z:-3,ry:7.2,s:.9},media:{x:3.6*xs,y:-5,z:-3.5,ry:8,s:.6},years:{x:0,y:1.55,z:-1.2,ry:9.4,s:.7}}; camera.position.z = 7; }
+    if(mob){ const y=1.5, s=.6; P = {hero:{x:0,y,z:0,ry:.6,s},intro:{x:0,y,z:0,ry:2,s},donors:{x:0,y,z:0,ry:3,s},wages:{x:0,y,z:0,ry:4.4,s},balance:{x:0,y,z:.3,ry:6.28,s:.7},summary:{x:0,y:5,z:-6,ry:6.7,s:.6},program:{x:0,y:5,z:-6,ry:7,s:.6},news:{x:0,y:5,z:-6,ry:7.2,s:.6},media:{x:0,y:5,z:-6,ry:8,s:.6},years:{x:0,y:1.5,z:-1,ry:9.4,s:.55}}; camera.position.z = 8; }
+    else { P = {hero:{x:2.35*xs,y:-.1,z:0,ry:.6,s:1.2},intro:{x:-2.3*xs,y:0,z:-.5,ry:2,s:1},donors:{x:-2.6*xs,y:-.1,z:.2,ry:3,s:1.1},wages:{x:2.6*xs,y:-.1,z:.2,ry:4.4,s:1.05},balance:{x:0,y:.75,z:.5,ry:6.28,s:.95},summary:{x:0,y:-5,z:-3,ry:6.7,s:.9},program:{x:0,y:-5,z:-3,ry:7,s:.9},news:{x:0,y:-5,z:-3,ry:7.2,s:.9},media:{x:3.6*xs,y:-5,z:-3.5,ry:8,s:.6},years:{x:0,y:1.55,z:-1.2,ry:9.4,s:.7}}; camera.position.z = 7; }
   }
   function resize(){ renderer.setSize(innerWidth, innerHeight, false); camera.aspect = innerWidth/innerHeight; camera.updateProjectionMatrix(); buildPoses(); measure(); }
   addEventListener("resize", resize); resize();
@@ -658,7 +661,7 @@ function loginBox(then){
   modal(`<h3>Admin login</h3>
     <label>Your name</label><select id="lgName">${CONFIG.admins.map(n=>`<option>${esc(n)}</option>`).join("")}</select>
     <label>PIN</label><input id="lgPin" type="password" inputmode="numeric" autocomplete="off" placeholder="••••">
-    ${demoMode()?`<p class="hint">Demo mode: PIN is 1234. Changes are not saved after you close the page.</p>`:`<p class="hint">Only the 4 committee admins can add or change data. Everyone else can view.</p>`}
+    ${demoMode()?`<p class="hint">Preview mode: changes are kept on this device only. Visitors on other phones will not see them until shared saving is switched on (setup step with Code.gs).</p>`:`<p class="hint">Only the 4 committee admins can add or change data. Everyone else can view.</p>`}
     <p class="hint" id="lgErr" style="color:var(--red)"></p>
     <div class="acts"><button class="btn ghost sm" id="lgNo">Cancel</button><button class="btn sm" id="lgOk">Unlock</button></div>`);
   $("lgNo").onclick = closeModal;
@@ -666,7 +669,7 @@ function loginBox(then){
     const name = $("lgName").value, pin = $("lgPin").value.trim(); $("lgOk").disabled = true; $("lgErr").textContent = "";
     try{
       let ok = false;
-      if(CONFIG.api){ const r = await api({action:"login", name, pin}); ok = !!r.ok; } else ok = pin === "1234";
+      if(CONFIG.api){ const r = await api({action:"login", name, pin}); ok = !!r.ok; } else ok = pin === "5333";
       if(!ok){ $("lgErr").textContent = "Wrong PIN. Please try again."; $("lgOk").disabled = false; return; }
       setAdmin({name, pin}); closeModal(); toast("Admin unlocked: "+name); then && then();
     }catch(e){ $("lgErr").textContent = "Could not reach the server. Check internet and try again."; $("lgOk").disabled = false; }
@@ -717,12 +720,13 @@ async function saveRow(tab, row, id){
   } else row.id = id || ("l"+Date.now()+Math.random().toString(36).slice(2,5));
   const arr = state.data[tab] = state.data[tab] || [];
   if(id){ const i = arr.findIndex(x=>x.id===id); if(i>=0) arr[i] = {...arr[i],...row}; } else arr.push(row);
+  persistDemo();
 }
 async function delRow(tab, id){
   if(!confirm("Delete this entry? This cannot be undone.")) return;
   try{
     if(CONFIG.api){ const r = await api({action:"delete", tab, id, name:admin.name, pin:admin.pin}); if(!r.ok) throw new Error(r.error||"Server error"); }
-    state.data[tab] = state.data[tab].filter(x=>x.id!==id); render(); toast("Deleted");
+    state.data[tab] = state.data[tab].filter(x=>x.id!==id); persistDemo(); render(); toast("Deleted");
   }catch(e){ toast("Could not delete: "+(e.message||"error")); }
 }
 
@@ -752,7 +756,7 @@ function photoBox(){
           const r = await api({action:"photo", name:admin.name, pin:admin.pin, row, data});
           if(!r.ok) throw new Error(r.error||"Server error"); row.id = r.id; row.file = r.url;
         } else { row.id = "l"+Date.now()+n; row.file = data; }
-        (state.data.photos = state.data.photos||[]).push(row); n++;
+        (state.data.photos = state.data.photos||[]).push(row); persistDemo(); n++;
       }
       state.year = yr; closeModal(); render(); toast(n+" photo"+(n>1?"s":"")+" added to "+yr+" ✔");
     }catch(err){ $("fpErr").textContent = err.message || "Upload failed."; $("fpOk").disabled = false; $("fpOk").textContent = "Upload"; if(n){ render(); } }
@@ -808,6 +812,13 @@ if("speechSynthesis" in window) speechSynthesis.getVoices();
   setAdmin(admin);
   if(CONFIG.leaderSheetLink) $("leaderLink").innerHTML = `<a class="btn ghost" href="${esc(CONFIG.leaderSheetLink)}" target="_blank" rel="noopener">🔑 Leaders: open the sheet</a>`;
   await loadAll();
+  /* everyone's page checks for admin changes every 40 seconds and updates itself */
+  if(CONFIG.api) setInterval(async()=>{
+    if(document.hidden || $("modal").classList.contains("on") || curBtn) return;
+    try{ const j = await (await fetch(CONFIG.api+"?action=read")).json(), old = JSON.stringify(state.data);
+      const nd = {}; KEYS.forEach(k => nd[k] = j[k] || []);
+      if(JSON.stringify(nd) !== old){ state.data = nd; render(); } }catch(e){}
+  }, 40000);
   try{ await Promise.race([document.fonts.load('600 24px Poppins'), new Promise(r=>setTimeout(r,1500))]); }catch(e){}
   GL = initGL();
   render();
